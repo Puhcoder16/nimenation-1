@@ -29,7 +29,9 @@ function App() {
   return (
     <ThemeProvider>
       <Router>
-        <MainLayout />
+        <div className="overflow-hidden">
+          <MainLayout />
+        </div>
       </Router>
     </ThemeProvider>
   );

@@ -7,14 +7,7 @@ const Hero = () => {
   return (
     <section
       id="home"
-      /* FIX: Mengubah tinggi section Hero.
-        - Dihapus: `min-h-screen` (yang bikin section terlalu tinggi di desktop).
-        - Ditambah: `h-[85vh]` untuk membuat tingginya 85% dari layar, jadi nggak full 100%.
-        - Ditambah: `min-h-[600px]` sebagai tinggi minimal, biar di layar yang pendek nggak aneh.
-        - Ditambah: `max-h-[850px]` sebagai tinggi maksimal, biar di layar super tinggi nggak kepanjangan.
-        Hasilnya, jarak ke section About jadi lebih pas di semua ukuran layar.
-      */
-      className="relative flex h-[85vh] min-h-[600px] max-h-[850px] items-center justify-center bg-cover bg-center bg-no-repeat"
+      className="relative flex h-[85vh] min-h-[600px] max-h-[850px] items-center justify-center bg-cover bg-center bg-no-repeat overflow-hidden"
       style={{ backgroundImage: `url('/hero.webp')` }}
     >
       <div className="absolute inset-0 z-0 bg-black/50"></div>
