@@ -1,6 +1,3 @@
-// src/components/theme.ts
-
-// Tipe data untuk gaya hero (elemen di atas gambar)
 interface HeroStyles {
   gradientText: string;
   button: {
@@ -9,7 +6,6 @@ interface HeroStyles {
   };
 }
 
-// Tipe data untuk gaya section lain (About, dll)
 interface SectionStyles {
   background: string;
   colors: {
@@ -21,32 +17,27 @@ interface SectionStyles {
   };
 }
 
-// Tipe data untuk keseluruhan tema
 interface AppTheme {
   hero: HeroStyles;
   sections: SectionStyles;
 }
 
-// --- PUSAT KENDALI TEMA ---
-export const currentTheme: AppTheme = {
-  // Pengaturan untuk elemen di dalam Hero.tsx (di atas gambar)
+export const currentTheme = {
   hero: {
-    gradientText: 'from-orange-500 to-purple-500', // Warna gradasi teks "Nimenation"
+    gradientText: 'from-yellow-400 to-orange-500',
     button: {
-      gradient: 'from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700', // Warna tombol
-      shadow: 'hover:shadow-orange-500/50', // Bayangan tombol saat hover
+      gradient: 'from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700',
+      shadow: 'hover:shadow-orange-500/50',
     },
   },
-
-  // Pengaturan untuk section lain (About.tsx, Footer.tsx, etc.)
   sections: {
-    background: 'bg-gradient-to-br from-gray-900 via-purple-900/10 to-gray-900', // Latar belakang section About, dll.
+    background: 'bg-gradient-to-br from-neutral-900 via-orange-950/20 to-neutral-900',
     colors: {
-      primary: 'text-orange-500', // Warna utama untuk icon, dll.
+      primary: 'text-orange-500',
     },
     borders: {
-      subtle: 'border-orange-500/20', // Warna border kartu
-      hover: 'hover:border-orange-500/50', // Warna border kartu saat hover
+      subtle: 'border-orange-500/30',
+      hover: 'hover:border-orange-500/60',
     },
   },
 };
