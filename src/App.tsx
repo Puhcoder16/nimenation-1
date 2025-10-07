@@ -9,12 +9,15 @@ function App() {
   return (
     <ThemeProvider>
       <Router>
-        <div className="min-h-screen">
+        {/* Menggunakan Flexbox untuk layout yang benar */}
+        <div className="min-h-screen flex flex-col">
           <Navbar />
-          <main>
+          {/* main akan mengisi ruang yang tersedia */}
+          <main className="flex-grow">
             <Hero />
             <About />
           </main>
+          {/* Footer akan selalu di bawah */}
           <Footer />
         </div>
       </Router>
