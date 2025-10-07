@@ -4,6 +4,7 @@
 
 @layer base {
   body {
+    /* HAPUS bg-gray-900 DARI SINI */
     @apply text-white; 
   }
 
