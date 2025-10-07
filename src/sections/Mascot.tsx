@@ -23,8 +23,7 @@ const Mascot = () => {
   ];
 
   return (
-    // NOTE: Kelas background dihapus dari sini
-    <section id="mascot" ref={ref} className="py-20 overflow-hidden">
+    <section id="mascot" ref={ref} className="py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -57,7 +56,6 @@ const Mascot = () => {
                 <img
                   src={mascot.imageSrc}
                   alt={`Maskot ${mascot.name}`}
-                  // FIX: Menggunakan drop-shadow untuk bayangan yang lebih natural
                   className="w-full h-auto max-h-[450px] object-contain [filter:drop-shadow(0_10px_15px_rgba(234,88,12,0.3))]"
                 />
               </motion.div>
