@@ -6,7 +6,6 @@ import About from './sections/About';
 import Mascot from './sections/Mascot';
 import { ThemeProvider, useTheme } from './components/ThemeContext';
 
-// Komponen baru untuk manage layout utama
 const MainLayout = () => {
   const theme = useTheme();
   return (

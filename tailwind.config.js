@@ -1,3 +1,5 @@
+import defaultTheme from 'tailwindcss/defaultTheme';
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
@@ -6,6 +8,9 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['Roboto Mono', ...defaultTheme.fontFamily.sans],
+      },
       colors: {
         'nime-orange': '#C04000',
         'nime-cream': '#E6BF83',
