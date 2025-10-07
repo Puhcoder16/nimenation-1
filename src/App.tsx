@@ -3,6 +3,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Hero from './sections/Hero';
 import About from './sections/About';
+import Mascot from './sections/Mascot';
 import { ThemeProvider } from './components/ThemeContext';
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
           <main className="flex-grow">
             <Hero />
             <About />
+            <Mascot />
           </main>
           <Footer />
         </div>
