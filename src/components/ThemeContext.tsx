@@ -1,6 +1,6 @@
 // src/components/ThemeContext.tsx
 import React, { createContext, useContext, ReactNode } from 'react';
-import { currentTheme, themes } from '../theme/themes'; 
+import { currentTheme, themes } from './themes'; 
 
 type ThemeType = typeof themes.halloween;
 
