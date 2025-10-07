@@ -31,7 +31,7 @@ export const currentTheme = {
     },
   },
   sections: {
-    background: 'bg-gradient-to-br from-neutral-900 via-orange-950/20 to-neutral-900',
+    background: 'bg-gradient-to-b from-neutral-900 to-[#2a1a10]',
     colors: {
       primary: 'text-orange-500',
     },

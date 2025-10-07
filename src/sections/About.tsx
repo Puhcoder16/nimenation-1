@@ -49,7 +49,7 @@ const About = () => {
                 transition={{ duration: 0.6, delay: 0.2 + index * 0.1 }}
                 className={`bg-gray-800/50 backdrop-blur-sm border rounded-lg p-6 hover:transform hover:scale-105 transition-all duration-200 ${theme.sections.borders.subtle} ${theme.sections.borders.hover}`}
               >
-                <div className={`bg-gradient-to-br w-14 h-14 rounded-lg flex items-center justify-center mb-4`}>
+                <div className={`bg-gradient-to-br from-orange-500/20 to-orange-600/10 w-14 h-14 rounded-lg flex items-center justify-center mb-4`}>
                   <Icon className={`w-7 h-7 ${theme.sections.colors.primary}`} />
                 </div>
                 <h3 className="text-white font-semibold text-xl mb-3">
