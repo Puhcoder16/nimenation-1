@@ -2,7 +2,7 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
 import { Users, Gamepad2, Heart, MessageCircle } from 'lucide-react';
-import { useTheme } from '../components/ThemeContext';
+import { useTheme } from '../components/ThemeContext'; // Sesuaikan path jika perlu
 
 const About = () => {
   const ref = useRef(null);
@@ -17,10 +17,11 @@ const About = () => {
   ];
 
   return (
+    // Background section ini dikontrol dari theme.ts
     <section
       id="about"
       ref={ref}
-      className={`min-h-screen flex items-center justify-center py-20 ${theme.backgrounds.about}`}
+      className={`min-h-screen flex items-center justify-center py-20 ${theme.sections.background}`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
@@ -31,12 +32,13 @@ const About = () => {
         >
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
             Tentang{' '}
-            <span className={`text-transparent bg-clip-text bg-gradient-to-r ${theme.colors.gradientText}`}>
+            {/* Gradasi teks ini kita samakan dari hero, agar konsisten */}
+            <span className={`text-transparent bg-clip-text bg-gradient-to-r ${theme.hero.gradientText}`}>
               Nimenation
             </span>
           </h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-            Nimenation adalah komunitas Discord untuk para penggemar game, anime, horor, dan obrolan santai. Kami menciptakan ruang yang nyaman dengan vibes spooky yang menyenangkan.
+            Nimenation adalah komunitas Discord untuk para penggemar game, anime, horor, dan obrolan santai.
           </p>
         </motion.div>
 
@@ -49,10 +51,12 @@ const About = () => {
                 initial={{ opacity: 0, y: 30 }}
                 animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
                 transition={{ duration: 0.6, delay: 0.2 + index * 0.1 }}
-                className={`bg-gray-800/50 backdrop-blur-sm border rounded-lg p-6 hover:transform hover:scale-105 transition-all duration-200 ${theme.borders.subtle} ${theme.borders.hover}`}
+                // Border kartu dikontrol dari theme.ts
+                className={`bg-gray-800/50 backdrop-blur-sm border rounded-lg p-6 hover:transform hover:scale-105 transition-all duration-200 ${theme.sections.borders.subtle} ${theme.sections.borders.hover}`}
               >
-                <div className={`bg-gradient-to-br w-14 h-14 rounded-lg flex items-center justify-center mb-4 from-orange-500/20 to-purple-500/20`}>
-                  <Icon className={`w-7 h-7 ${theme.colors.primary}`} />
+                <div className={`bg-gradient-to-br w-14 h-14 rounded-lg flex items-center justify-center mb-4 ${theme.hero.gradientText.replace('from-','from-').replace('to-','to-').replace('text-','')}/20`}>
+                   {/* Warna icon dikontrol dari theme.ts */}
+                  <Icon className={`w-7 h-7 ${theme.sections.colors.primary}`} />
                 </div>
                 <h3 className="text-white font-semibold text-xl mb-3">
                   {feature.title}
