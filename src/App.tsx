@@ -1,21 +1,26 @@
+// src/App.tsx
+
 import { BrowserRouter as Router } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Hero from './sections/Hero';
 import About from './sections/About';
+import { ThemeProvider } from './components/ThemeContext';
 
 function App() {
   return (
-    <Router>
-      <div className="min-h-screen bg-gray-900">
-        <Navbar />
-        <main>
-          <Hero />
-          <About />
-        </main>
-        <Footer />
-      </div>
-    </Router>
+    <ThemeProvider>
+      <Router>
+        <div className="min-h-screen">
+          <Navbar />
+          <main>
+            <Hero />
+            <About />
+          </main>
+          <Footer />
+        </div>
+      </Router>
+    </ThemeProvider>
   );
 }
 
