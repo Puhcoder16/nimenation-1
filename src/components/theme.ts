@@ -17,10 +17,7 @@ interface SectionStyles {
   };
 }
 
-interface AppTheme {
-  hero: HeroStyles;
-  sections: SectionStyles;
-}
+// Tidak ada perubahan di interface
 
 export const currentTheme = {
   hero: {
@@ -31,7 +28,7 @@ export const currentTheme = {
     },
   },
   sections: {
-    background: 'bg-gradient-to-br from-orange-950 via-orange-600 to-amber-500',
+    background: 'bg-nime-diagonal',
     colors: {
       primary: 'text-orange-500',
     },

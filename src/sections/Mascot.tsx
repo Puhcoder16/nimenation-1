@@ -17,13 +17,14 @@ const Mascot = () => {
     {
       name: 'Nime-kun',
       imageSrc: '/nimekun.webp',
-      description: 'Salah satu dari maskot Nimenation community, dia adalah kakak dari Nime-chan. Memiliki sifat yang dingin dan tidak terlalu suka bersosialisasi, dan tidak selalu beruntung dalam mencari jodoh, namun dia mendapatkan banyak teman dari bermain game online seperti FPS games dan Moba. Nime-kun sendiri terinspirasi dari mayoritas member Nimenation yang bergender lelaki.',
+      description: 'Salah satu dari maskot Nimenation community, dia adalah kakak dari Nime-chan. Memiliki sifat yang dingin dan tidak terlalu suka bersosialisasi, dan tidak selalu beruntung dalam mencari jodoh, namun dia mendapatkan banyak teman dari bermain game online seperti FPS games dan Moba. Nime-kun sendiri terinsipirasi dari mayoritas member Nimenation yang bergender lelaki.',
       imagePosition: 'right',
     },
   ];
 
   return (
-    <section id="mascot" ref={ref} className={`py-20 overflow-hidden ${theme.sections.background}`}>
+    // NOTE: Kelas background dihapus dari sini
+    <section id="mascot" ref={ref} className="py-20 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -56,7 +57,8 @@ const Mascot = () => {
                 <img
                   src={mascot.imageSrc}
                   alt={`Maskot ${mascot.name}`}
-                  className="rounded-2xl object-cover w-full h-auto aspect-square max-h-[400px] md:max-h-full mx-auto shadow-2xl shadow-orange-900/40"
+                  // FIX: Menggunakan drop-shadow untuk bayangan yang lebih natural
+                  className="w-full h-auto max-h-[450px] object-contain [filter:drop-shadow(0_10px_15px_rgba(234,88,12,0.3))]"
                 />
               </motion.div>
 
