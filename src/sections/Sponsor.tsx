@@ -24,45 +24,46 @@ const Sponsor = () => {
                 Nimenation
               </span>
             </h2>
-            
-            <div className="space-y-6 text-gray-300">
-              <div>
-                <h3 className="flex items-center text-2xl font-semibold text-white mb-3">
-                  <Heart className={`w-6 h-6 mr-3 ${theme.sections.colors.primary}`} />
-                  Donasi
-                </h3>
-                <p>
-                  Dukung kami untuk terus berkembang dan mengadakan event seru. Donasi bisa melalui Trakteer, Saweria, atau transfer langsung. Para donatur akan mendapatkan role spesial sebagai bentuk terima kasih kami.
-                </p>
-                <div className="flex flex-wrap gap-3 mt-4">
-                   <a href="https://trakteer.id/nimenation" target="_blank" rel="noopener noreferrer" className={`inline-block text-white text-sm font-semibold px-4 py-2 rounded-lg shadow-lg transition-all duration-200 transform hover:scale-105 ${theme.hero.button.gradient}`}>Trakteer</a>
-                   <a href="https://saweria.co/nimenation" target="_blank" rel="noopener noreferrer" className={`inline-block text-white text-sm font-semibold px-4 py-2 rounded-lg shadow-lg transition-all duration-200 transform hover:scale-105 ${theme.hero.button.gradient}`}>Saweria</a>
+
+            <div className={`bg-gray-800/50 backdrop-blur-sm border rounded-2xl p-8 ${theme.sections.borders.subtle}`}>
+              <div className="space-y-8">
+                <div>
+                  <h3 className="flex items-center text-2xl font-semibold text-white mb-3">
+                    <Heart className={`w-6 h-6 mr-3 ${theme.sections.colors.primary}`} />
+                    Donasi
+                  </h3>
+                  <p className="text-gray-300">
+                    Dukung kami untuk terus berkembang dan mengadakan event seru. Donasi bisa melalui Trakteer, Saweria, atau transfer langsung. Para donatur akan mendapatkan role spesial sebagai bentuk terima kasih kami.
+                  </p>
+                  <div className="flex flex-wrap gap-3 mt-4">
+                     <a href="https://trakteer.id/nimenation" target="_blank" rel="noopener noreferrer" className={`inline-block text-white text-sm font-semibold px-4 py-2 rounded-lg shadow-lg transition-all duration-200 transform hover:scale-105 ${theme.hero.button.gradient} ${theme.hero.button.shadow}`}>Trakteer</a>
+                     <a href="https://saweria.co/nimenation" target="_blank" rel="noopener noreferrer" className={`inline-block text-white text-sm font-semibold px-4 py-2 rounded-lg shadow-lg transition-all duration-200 transform hover:scale-105 ${theme.hero.button.gradient} ${theme.hero.button.shadow}`}>Saweria</a>
+                  </div>
+                </div>
+                
+                <div>
+                  <h3 className="flex items-center text-2xl font-semibold text-white mb-3">
+                    <Handshake className={`w-6 h-6 mr-3 ${theme.sections.colors.primary}`} />
+                    Sponsorship
+                  </h3>
+                  <p className="text-gray-300">
+                    Buka kesempatan untuk bisnis atau usahamu berkolaborasi dengan kami. Dapatkan benefit promosi, role khusus, dan *special thanks* di setiap event.
+                  </p>
+                   <div className="flex flex-wrap gap-3 mt-4">
+                     <a href="https://drive.google.com/file/d/1S3S2vxfO9q-fSL-sMPW0jPB_iJ3mPHYd/view?usp=sharing" target="_blank" rel="noopener noreferrer" className={`inline-block text-white text-sm font-semibold px-4 py-2 rounded-lg shadow-lg transition-all duration-200 transform hover:scale-105 ${theme.hero.button.gradient} ${theme.hero.button.shadow}`}>Lihat Detail</a>
+                  </div>
+                </div>
+
+                <div>
+                  <h3 className="flex items-center text-2xl font-semibold text-white mb-3">
+                    <LinkIcon className={`w-6 h-6 mr-3 ${theme.sections.colors.primary}`} />
+                    Partnership
+                  </h3>
+                  <p className="text-gray-300">
+                    Kami terbuka untuk partnership dengan server lain yang aktif, memiliki minimal 500 member, dan mematuhi TOS Discord. Hubungi kami untuk info lebih lanjut.
+                  </p>
                 </div>
               </div>
-              
-              <div>
-                <h3 className="flex items-center text-2xl font-semibold text-white mb-3">
-                  <Handshake className={`w-6 h-6 mr-3 ${theme.sections.colors.primary}`} />
-                  Sponsorship
-                </h3>
-                <p>
-                  Buka kesempatan untuk bisnis atau usahamu berkolaborasi dengan kami. Dapatkan benefit promosi, role khusus, dan *special thanks* di setiap event.
-                </p>
-                 <div className="flex flex-wrap gap-3 mt-4">
-                   <a href="https://drive.google.com/file/d/1S3S2vxfO9q-fSL-sMPW0jPB_iJ3mPHYd/view?usp=sharing" target="_blank" rel="noopener noreferrer" className={`inline-block text-white text-sm font-semibold px-4 py-2 rounded-lg shadow-lg transition-all duration-200 transform hover:scale-105 ${theme.hero.button.gradient}`}>Lihat Detail</a>
-                </div>
-              </div>
-
-              <div>
-                <h3 className="flex items-center text-2xl font-semibold text-white mb-3">
-                  <LinkIcon className={`w-6 h-6 mr-3 ${theme.sections.colors.primary}`} />
-                  Partnership
-                </h3>
-                <p>
-                  Kami terbuka untuk partnership dengan server lain yang aktif, memiliki minimal 500 member, dan mematuhi TOS Discord. Hubungi kami untuk info lebih lanjut.
-                </p>
-              </div>
-
             </div>
           </motion.div>
 
@@ -73,7 +74,7 @@ const Sponsor = () => {
             className="hidden md:block w-full md:w-5/12"
           >
             <img
-              src="/sponsor.webp"
+              src="/sponsor-image.webp"
               alt="Sponsorship Illustration"
               className="w-full h-auto object-contain [filter:drop-shadow(0_10px_15px_rgba(234,88,12,0.2))]"
             />
