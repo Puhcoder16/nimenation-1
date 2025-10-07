@@ -7,45 +7,52 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat"
+      /* FIX: Mengubah tinggi section Hero.
+        - Dihapus: `min-h-screen` (yang bikin section terlalu tinggi di desktop).
+        - Ditambah: `h-[85vh]` untuk membuat tingginya 85% dari layar, jadi nggak full 100%.
+        - Ditambah: `min-h-[600px]` sebagai tinggi minimal, biar di layar yang pendek nggak aneh.
+        - Ditambah: `max-h-[850px]` sebagai tinggi maksimal, biar di layar super tinggi nggak kepanjangan.
+        Hasilnya, jarak ke section About jadi lebih pas di semua ukuran layar.
+      */
+      className="relative flex h-[85vh] min-h-[600px] max-h-[850px] items-center justify-center bg-cover bg-center bg-no-repeat"
       style={{ backgroundImage: `url('/hero.webp')` }}
     >
-      <div className="absolute inset-0 bg-black/50 z-0"></div>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center relative z-10">
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-5xl md:text-7xl font-bold text-white mb-6"
+      <div className="absolute inset-0 z-0 bg-black/50"></div>
+      <div className="relative z-10 mx-auto max-w-7xl px-4 py-20 text-center sm:px-6 lg:px-8">
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="mb-6 text-5xl font-bold text-white md:text-7xl"
+        >
+          Selamat datang di{' '}
+          <span className={`text-transparent bg-clip-text bg-gradient-to-r ${theme.hero.gradientText}`}>
+            Nimenation
+          </span>
+          !
+        </motion.h1>
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="mx-auto mb-8 max-w-3xl text-xl text-gray-200 md:text-2xl"
+        >
+          Sebuah komunitas hangat, tempat kamu bisa ngobrol, bermain, dan berteman.
+        </motion.p>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+        >
+          <a
+            href="https://discord.gg/nimenation"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`inline-block transform rounded-lg px-8 py-4 text-lg font-semibold text-white shadow-lg transition-all duration-200 hover:scale-105 ${theme.hero.button.gradient} ${theme.hero.button.shadow}`}
           >
-            Selamat datang di{' '}
-            <span className={`text-transparent bg-clip-text bg-gradient-to-r ${theme.hero.gradientText}`}>
-              Nimenation
-            </span>
-            !
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-xl md:text-2xl text-gray-200 mb-8 max-w-3xl mx-auto"
-          >
-            Sebuah komunitas hangat, tempat kamu bisa ngobrol, bermain, dan berteman.
-          </motion.p>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-          >
-            <a
-              href="https://discord.gg/nimenation"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`inline-block bg-gradient-to-r text-white text-lg font-semibold px-8 py-4 rounded-lg shadow-lg transition-all duration-200 transform hover:scale-105 ${theme.hero.button.gradient} ${theme.hero.button.shadow}`}
-            >
-              Gabung Sekarang
-            </a>
-          </motion.div>
+            Gabung Sekarang
+          </a>
+        </motion.div>
       </div>
     </section>
   );
