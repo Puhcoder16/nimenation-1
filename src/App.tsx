@@ -12,6 +12,7 @@ import Sponsor from './sections/Sponsor';
 import AboutPage from './pages/AboutPage';
 import FeaturesPage from './pages/FeaturesPage';
 import RulesPage from './pages/RulesPage';
+import EventsPage from './pages/EventsPage';
 
 const HomePage = () => {
   return (
@@ -48,6 +49,7 @@ function App() {
             <Route path="/about" element={<AboutPage />} />
             <Route path="/features" element={<FeaturesPage />} />
             <Route path="/rules" element={<RulesPage />} />
+            <Route path="/events" element={<EventsPage />} />
           </Routes>
         </Layout>
       </Router>

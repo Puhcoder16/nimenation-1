@@ -22,6 +22,7 @@ const Navbar = () => {
   const navLinks = [
     { to: '/', label: 'Home', icon: HomeIcon },
     { to: '/about', label: 'About', icon: AboutIcon },
+    { to: '/events', label: 'Events', icon: FeaturesIcon },
     {
       label: 'Community',
       icon: CommunityIcon,

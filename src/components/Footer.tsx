@@ -2,7 +2,7 @@ import DiscordIcon from './icons/DiscordIcon';
 import InstagramIcon from './icons/InstagramIcon';
 import TiktokIcon from './icons/TiktokIcon';
 import YoutubeIcon from './icons/YoutubeIcon';
-import GhostIcon from './icons/GhostIcon';
+import GhostIcon from './icons/halloween/GhostIcon';
 
 const Footer = () => {
   const socialLinks = [
