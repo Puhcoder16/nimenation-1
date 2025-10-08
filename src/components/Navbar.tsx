@@ -1,10 +1,9 @@
 import { useState } from 'react';
-import { useTheme } from './ThemeContext';
 import { Menu, X } from 'lucide-react';
+import ShinyButton from './ShinyButton';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const theme = useTheme();
 
   const navLinks = [
     { href: '#home', label: 'Home' },
@@ -29,9 +28,9 @@ const Navbar = () => {
               ))}
             </nav>
 
-            <a href="#recruitment" className={`hidden md:inline-block text-white font-semibold px-6 py-3 rounded-lg shadow-lg transition-all duration-200 transform hover:scale-105 ${theme.hero.button.gradient} ${theme.hero.button.shadow}`}>
-              Recruitment
-            </a>
+            <div className="hidden md:block">
+              <ShinyButton href="#recruitment" text="Recruitment" />
+            </div>
 
             <div className="md:hidden">
               <button onClick={() => setIsOpen(true)} className="text-white p-2">
@@ -61,9 +60,7 @@ const Navbar = () => {
           </div>
 
           <div className="mt-auto p-8">
-            <a href="#recruitment" onClick={() => setIsOpen(false)} className={`block w-full text-center text-white font-semibold px-6 py-4 rounded-lg shadow-lg transition-all duration-200 ${theme.hero.button.gradient} ${theme.hero.button.shadow}`}>
-              Recruitment
-            </a>
+            <ShinyButton href="#recruitment" text="Recruitment" className="w-full text-center block" />
           </div>
         </nav>
       </div>

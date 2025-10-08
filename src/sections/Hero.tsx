@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { useTheme } from '../components/ThemeContext';
+import ShinyButton from '../components/ShinyButton';
 
 const Hero = () => {
   const theme = useTheme();
@@ -37,14 +38,7 @@ const Hero = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
         >
-          <a
-            href="https://discord.gg/nimenation"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`inline-block transform rounded-lg px-8 py-4 text-lg font-semibold text-white shadow-lg transition-all duration-200 hover:scale-105 ${theme.hero.button.gradient} ${theme.hero.button.shadow}`}
-          >
-            Gabung Sekarang
-          </a>
+          <ShinyButton href="https://discord.gg/nimenation" text="Gabung Sekarang" />
         </motion.div>
       </div>
     </section>
