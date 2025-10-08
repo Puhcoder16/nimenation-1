@@ -12,7 +12,6 @@ const About = () => {
   return (
     <section id="about" ref={ref} className="py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Judul di luar card */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -20,7 +19,6 @@ const About = () => {
           className="text-center mb-12"
         >
           <div className="flex justify-center items-center gap-4">
-            {/* Ikon disembunyikan di mobile (hidden), muncul di tablet (sm:block) */}
             <AboutIcon className="hidden sm:block w-10 h-10 text-orange-400" />
             <h2 className="text-4xl md:text-5xl font-bold text-white">
               Tentang{' '}
@@ -31,17 +29,16 @@ const About = () => {
           </div>
         </motion.div>
 
-        {/* Card untuk konten */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className={`max-w-4xl mx-auto text-center bg-gray-800/20 backdrop-blur-sm border rounded-2xl p-8 md:p-12 ${theme.sections.borders.subtle}`}
+            initial={{ opacity: 0, y: 30 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className={`max-w-4xl mx-auto text-center bg-gray-800/20 backdrop-blur-sm border rounded-2xl p-8 md:p-12 ${theme.sections.borders.subtle}`}
         >
-          <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed mb-8">
+            <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed mb-8">
             Nimenation adalah server Discord yang didedikasikan untuk para pecinta anime dan manga dari seluruh dunia. Kami adalah tempat yang ramah dan terbuka di mana kamu bisa mencari teman baru, berbagi rekomendasi, dan merasakan kehangatan dari sebuah komunitas yang penuh semangat.
-          </p>
-          <ShinyButton href="#about-page" text="Lebih Lanjut" />
+            </p>
+            <ShinyButton to="/about" text="Lebih Lanjut" />
         </motion.div>
       </div>
     </section>
