@@ -1,4 +1,4 @@
-import { motion, useIn-View } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
 import { useTheme } from '../components/Theme-Context';
 import AboutIcon from '../components/icons/AboutIcon';
