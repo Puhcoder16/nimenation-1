@@ -10,6 +10,7 @@ import SponsorIcon from './icons/SponsorIcon';
 import CommunityIcon from './icons/CommunityIcon';
 import FeaturesIcon from './icons/FeaturesIcon';
 import RulesIcon from './icons/RulesIcon';
+import RecruitmentIcon from './icons/RecruitmentIcon';
 
 import { Menu, X, ChevronDown } from 'lucide-react';
 
@@ -109,7 +110,12 @@ const Navbar = () => {
           </div>
 
           <div className="p-6 border-t border-white/10">
-            <ShinyButton to="/recruitment" text="Recruitment" onClick={handleLinkClick} className="w-full text-center block" />
+            <ShinyButton to="/recruitment" onClick={handleLinkClick} className="w-full text-center block">
+                <div className="flex items-center justify-center gap-2">
+                    <RecruitmentIcon className="w-5 h-5" />
+                    <span>Recruitment</span>
+                </div>
+            </ShinyButton>
           </div>
         </nav>
       </div>
