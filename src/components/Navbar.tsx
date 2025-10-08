@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { useTheme } from './ThemeContext';
+import ShinyButton from './ShinyButton';
 import { motion } from 'framer-motion';
 
 import HomeIcon from './icons/HomeIcon';
@@ -52,6 +53,23 @@ const Navbar = () => {
                 className="h-14 w-14 rounded-full object-cover"
               />
             </Link>
+            
+            {/* FIX: Menambahkan menu navigasi untuk desktop/tablet */}
+            <nav className="hidden md:flex items-center space-x-6">
+              {navLinks.map((link) => (
+                <NavLink key={link.label} to={link.to || '#'} className={({ isActive }) => `text-white hover:text-orange-400 transition-colors font-semibold ${isActive ? 'text-orange-500' : ''}`}>
+                  {link.label}
+                </NavLink>
+              ))}
+              <ShinyButton to="/recruitment">
+                <div className="flex items-center justify-center gap-2">
+                  <RecruitmentIcon className="w-5 h-5" />
+                  <span>Recruitment</span>
+                </div>
+              </ShinyButton>
+            </nav>
+
+            {/* Tombol menu untuk mobile */}
             <button onClick={() => setIsMenuOpen(true)} className="text-white p-2 md:hidden">
               <Menu size={32} />
             </button>
@@ -59,6 +77,7 @@ const Navbar = () => {
         </div>
       </header>
 
+      {/* Menu mobile (slide-out) */}
       <div className={`fixed inset-0 z-50 transition-opacity duration-300 ${isMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
         <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setIsMenuOpen(false)}></div>
         <nav className={`fixed top-0 right-0 h-full w-4/5 max-w-xs shadow-2xl transform transition-transform duration-300 ease-in-out flex flex-col ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'} ${theme.sections.background}`}>
@@ -109,17 +128,13 @@ const Navbar = () => {
           </div>
 
           <div className="p-6 border-t border-white/10">
-            {/* FIX: Mengganti ShinyButton dengan NavLink dan memberikan style langsung.
-              Ini memastikan tombol, ikon, dan teksnya muncul dengan benar.
-            */}
-            <NavLink
-              to="/recruitment"
-              onClick={handleLinkClick}
-              className="flex w-full items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-orange-500 to-yellow-500 px-4 py-3 text-center font-bold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-orange-500/50"
-            >
-              <RecruitmentIcon className="w-5 h-5" />
-              <span>Recruitment</span>
-            </NavLink>
+            {/* FIX: Mengembalikan ShinyButton dan mengirim icon + teks sebagai children */}
+            <ShinyButton to="/recruitment" onClick={handleLinkClick} className="w-full">
+              <div className="flex items-center justify-center gap-2">
+                <RecruitmentIcon className="w-5 h-5" />
+                <span>Recruitment</span>
+              </div>
+            </ShinyButton>
           </div>
         </nav>
       </div>
