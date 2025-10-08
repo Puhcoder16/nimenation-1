@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { useTheme } from './ThemeContext';
-import ShinyButton from './ShinyButton';
 import { motion } from 'framer-motion';
 
 import HomeIcon from './icons/HomeIcon';
@@ -53,7 +52,7 @@ const Navbar = () => {
                 className="h-14 w-14 rounded-full object-cover"
               />
             </Link>
-            <button onClick={() => setIsMenuOpen(true)} className="text-white p-2">
+            <button onClick={() => setIsMenuOpen(true)} className="text-white p-2 md:hidden">
               <Menu size={32} />
             </button>
           </div>
@@ -110,12 +109,17 @@ const Navbar = () => {
           </div>
 
           <div className="p-6 border-t border-white/10">
-            <ShinyButton to="/recruitment" onClick={handleLinkClick} className="w-full text-center block">
-                <div className="flex items-center justify-center gap-2">
-                    <RecruitmentIcon className="w-5 h-5" />
-                    <span>Recruitment</span>
-                </div>
-            </ShinyButton>
+            {/* FIX: Mengganti ShinyButton dengan NavLink dan memberikan style langsung.
+              Ini memastikan tombol, ikon, dan teksnya muncul dengan benar.
+            */}
+            <NavLink
+              to="/recruitment"
+              onClick={handleLinkClick}
+              className="flex w-full items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-orange-500 to-yellow-500 px-4 py-3 text-center font-bold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-orange-500/50"
+            >
+              <RecruitmentIcon className="w-5 h-5" />
+              <span>Recruitment</span>
+            </NavLink>
           </div>
         </nav>
       </div>
