@@ -1,8 +1,8 @@
-import { motion, useIn-V-iew } from 'framer-motion';
+import { motion, useIn-View } from 'framer-motion';
 import { useRef } from 'react';
-import { use-Theme } from '../components/Theme-Context';
-import About-Icon from '../components/icons/About-Icon';
-import Shiny-Button from '../components/Shiny-Button';
+import { useTheme } from '../components/Theme-Context';
+import AboutIcon from '../components/icons/AboutIcon';
+import ShinyButton from '../components/ShinyButton';
 
 const About = () => {
   const ref = useRef(null);
