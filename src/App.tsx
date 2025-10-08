@@ -4,6 +4,7 @@ import Footer from './components/Footer';
 import Hero from './sections/Hero';
 import About from './sections/About';
 import Mascot from './sections/Mascot';
+import Features from './sections/Features';
 import Faq from './sections/Faq';
 import Sponsor from './sections/Sponsor';
 import { ThemeProvider, useTheme } from './components/ThemeContext';
@@ -17,6 +18,7 @@ const MainLayout = () => {
         <Hero />
         <About />
         <Mascot />
+        <Features />
         <Faq />
         <Sponsor />
       </main>
