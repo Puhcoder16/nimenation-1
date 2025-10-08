@@ -2,6 +2,7 @@ import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { useTheme } from '../components/ThemeContext';
 import { Handshake, Heart, Link as LinkIcon } from 'lucide-react';
+import ShinyButton from '../components/ShinyButton';
 
 const Sponsor = () => {
   const ref = useRef(null);
@@ -36,8 +37,8 @@ const Sponsor = () => {
                     Dukung kami untuk terus berkembang dan mengadakan event seru. Donasi bisa melalui Trakteer, Saweria, atau transfer langsung. Para donatur akan mendapatkan role spesial sebagai bentuk terima kasih kami.
                   </p>
                   <div className="flex flex-wrap gap-3 mt-4">
-                     <a href="https://trakteer.id/nimenation" target="_blank" rel="noopener noreferrer" className={`inline-block text-white text-sm font-semibold px-4 py-2 rounded-lg shadow-lg transition-all duration-200 transform hover:scale-105 ${theme.hero.button.gradient} ${theme.hero.button.shadow}`}>Trakteer</a>
-                     <a href="https://saweria.co/nimenation" target="_blank" rel="noopener noreferrer" className={`inline-block text-white text-sm font-semibold px-4 py-2 rounded-lg shadow-lg transition-all duration-200 transform hover:scale-105 ${theme.hero.button.gradient} ${theme.hero.button.shadow}`}>Saweria</a>
+                    <ShinyButton href="https://trakteer.id/nimenation" text="Trakteer" />
+                    <ShinyButton href="https://saweria.co/nimenation" text="Saweria" />
                   </div>
                 </div>
                 
@@ -50,7 +51,7 @@ const Sponsor = () => {
                     Buka kesempatan untuk bisnis atau usahamu berkolaborasi dengan kami. Dapatkan benefit promosi, role khusus, dan *special thanks* di setiap event.
                   </p>
                    <div className="flex flex-wrap gap-3 mt-4">
-                     <a href="https://drive.google.com/file/d/1S3S2vxfO9q-fSL-sMPW0jPB_iJ3mPHYd/view?usp=sharing" target="_blank" rel="noopener noreferrer" className={`inline-block text-white text-sm font-semibold px-4 py-2 rounded-lg shadow-lg transition-all duration-200 transform hover:scale-105 ${theme.hero.button.gradient} ${theme.hero.button.shadow}`}>Lihat Detail</a>
+                    <ShinyButton href="https://drive.google.com/file/d/1S3S2vxfO9q-fSL-sMPW0jPB_iJ3mPHYd/view?usp=sharing" text="Lihat Detail" />
                   </div>
                 </div>
 
@@ -74,7 +75,7 @@ const Sponsor = () => {
             className="hidden md:block w-full md:w-5/12"
           >
             <img
-              src="/sponsor-image.webp"
+              src="/sponsor.webp"
               alt="Sponsorship Illustration"
               className="w-full h-auto object-contain [filter:drop-shadow(0_10px_15px_rgba(234,88,12,0.2))]"
             />
