@@ -6,7 +6,6 @@ import GhostIcon from '../components/icons/halloween/GhostIcon';
 import BatIcon from '../components/icons/halloween/BatIcon';
 import { PartyPopper } from 'lucide-react';
 
-// Data untuk event Halloween
 const eventData = [
   {
     title: 'Kontes Kostum Spektakuler',
@@ -26,13 +25,12 @@ const eventData = [
   },
 ];
 
-// Komponen untuk satu kelelawar terbang
 const FlyingBat = ({ scrollYProgress, initialTop, initialLeft, speed, size }) => {
-  const y = useTransform(scrollYProgress, [0, 1], ['0vh', `${100 * speed}vh`]);
-  
+  const y = useTransform(scrollYProgress, [0, 1], ['-10vh', `${100 * speed}vh`]);
+
   return (
     <motion.div
-      className="absolute z-10 text-white/40"
+      className="absolute text-white/40"
       style={{
         y,
         top: `${initialTop}%`,
@@ -47,15 +45,11 @@ const FlyingBat = ({ scrollYProgress, initialTop, initialLeft, speed, size }) =>
   );
 };
 
-// Komponen Halaman Event
 const EventsPage = () => {
   const theme = useTheme();
-  const scrollRef = useRef(null);
-  const { scrollYProgress } = useScroll({ target: scrollRef });
-
+  const { scrollYProgress } = useScroll();
   const [bats, setBats] = useState([]);
 
-  // Generate posisi kelelawar secara acak saat komponen pertama kali dimuat
   useEffect(() => {
     const generateBats = () => {
       const newBats = Array.from({ length: 15 }).map(() => ({
@@ -71,22 +65,22 @@ const EventsPage = () => {
 
   return (
     <div
-      ref={scrollRef}
-      className="relative min-h-screen bg-cover bg-center bg-no-repeat overflow-x-hidden"
+      className="relative bg-cover bg-center bg-no-repeat overflow-x-hidden"
       style={{ backgroundImage: `url('/hero.webp')` }}
     >
       <div className="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
-      
-      {/* Render semua kelelawar */}
-      {bats.map((bat, i) => (
-        <FlyingBat key={i} scrollYProgress={scrollYProgress} {...bat} />
-      ))}
+
+      {/* Lapisan khusus untuk kelelawar */}
+      <div className="fixed inset-0 z-10 overflow-hidden pointer-events-none">
+        {bats.map((bat, i) => (
+          <FlyingBat key={i} scrollYProgress={scrollYProgress} {...bat} />
+        ))}
+      </div>
       
       <div className="relative z-20 pt-24 sm:pt-32 pb-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12 relative">
             
-            {/* Hantu yang bergerak-gerak */}
             <motion.div 
               className="absolute -top-10 left-10 md:left-20 text-orange-400/50"
               animate={{ y: [0, -15, 0], x: [0, 5, 0] }}

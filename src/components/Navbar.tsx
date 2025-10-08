@@ -11,6 +11,8 @@ import CommunityIcon from './icons/CommunityIcon';
 import FeaturesIcon from './icons/FeaturesIcon';
 import RulesIcon from './icons/RulesIcon';
 import RecruitmentIcon from './icons/RecruitmentIcon';
+import EventsIcon from './icons/EventsIcon';
+
 
 import { Menu, X, ChevronDown } from 'lucide-react';
 
@@ -22,7 +24,7 @@ const Navbar = () => {
   const navLinks = [
     { to: '/', label: 'Home', icon: HomeIcon },
     { to: '/about', label: 'About', icon: AboutIcon },
-    { to: '/events', label: 'Events', icon: FeaturesIcon },
+    { to: '/events', label: 'Events', icon: EventsIcon },
     {
       label: 'Community',
       icon: CommunityIcon,
