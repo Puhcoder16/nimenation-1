@@ -1,23 +1,17 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-
-// Komponen Inti
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
 import { ThemeProvider, useTheme } from './components/ThemeContext';
-
-// Section untuk Halaman Utama
 import Hero from './sections/Hero';
 import About from './sections/About';
 import Features from './sections/Features';
 import Mascot from './sections/Mascot';
 import Faq from './sections/Faq';
 import Sponsor from './sections/Sponsor';
-
-// Halaman Lain
 import AboutPage from './pages/AboutPage';
+import FeaturesPage from './pages/FeaturesPage';
 
-// Komponen Halaman Utama (didefinisikan di sini)
 const HomePage = () => {
   return (
     <>
@@ -31,7 +25,6 @@ const HomePage = () => {
   );
 };
 
-// Komponen Layout Pembungkus
 const Layout = ({ children }) => {
   const theme = useTheme();
   return (
@@ -43,7 +36,6 @@ const Layout = ({ children }) => {
   );
 };
 
-// Fungsi App utama sebagai Router
 function App() {
   return (
     <ThemeProvider>
@@ -53,7 +45,7 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/about" element={<AboutPage />} />
-            {/* Nanti route untuk halaman lain ditambah di sini */}
+            <Route path="/features" element={<FeaturesPage />} />
           </Routes>
         </Layout>
       </Router>
