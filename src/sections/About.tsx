@@ -38,7 +38,9 @@ const About = () => {
             <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed mb-8">
             Nimenation adalah server Discord yang didedikasikan untuk para pecinta anime dan manga dari seluruh dunia. Kami adalah tempat yang ramah dan terbuka di mana kamu bisa mencari teman baru, berbagi rekomendasi, dan merasakan kehangatan dari sebuah komunitas yang penuh semangat.
             </p>
-            <ShinyButton to="/about" text="Lebih Lanjut" />
+            <ShinyButton to="/about">
+              <span>Lebih Lanjut</span>
+            </ShinyButton>
         </motion.div>
       </div>
     </section>

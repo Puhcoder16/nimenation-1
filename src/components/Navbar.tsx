@@ -54,30 +54,15 @@ const Navbar = () => {
               />
             </Link>
             
-            {/* FIX: Menambahkan menu navigasi untuk desktop/tablet */}
-            <nav className="hidden md:flex items-center space-x-6">
-              {navLinks.map((link) => (
-                <NavLink key={link.label} to={link.to || '#'} className={({ isActive }) => `text-white hover:text-orange-400 transition-colors font-semibold ${isActive ? 'text-orange-500' : ''}`}>
-                  {link.label}
-                </NavLink>
-              ))}
-              <ShinyButton to="/recruitment">
-                <div className="flex items-center justify-center gap-2">
-                  <RecruitmentIcon className="w-5 h-5" />
-                  <span>Recruitment</span>
-                </div>
-              </ShinyButton>
-            </nav>
-
-            {/* Tombol menu untuk mobile */}
-            <button onClick={() => setIsMenuOpen(true)} className="text-white p-2 md:hidden">
+            {/* FIX: Tombol menu sekarang akan selalu tampil di semua ukuran layar. */}
+            <button onClick={() => setIsMenuOpen(true)} className="text-white p-2">
               <Menu size={32} />
             </button>
           </div>
         </div>
       </header>
 
-      {/* Menu mobile (slide-out) */}
+      {/* Menu slide-out (sekarang berfungsi untuk semua ukuran layar) */}
       <div className={`fixed inset-0 z-50 transition-opacity duration-300 ${isMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
         <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setIsMenuOpen(false)}></div>
         <nav className={`fixed top-0 right-0 h-full w-4/5 max-w-xs shadow-2xl transform transition-transform duration-300 ease-in-out flex flex-col ${isMenuOpen ? 'translate-x-0' : 'translate-x-full'} ${theme.sections.background}`}>
@@ -128,7 +113,6 @@ const Navbar = () => {
           </div>
 
           <div className="p-6 border-t border-white/10">
-            {/* FIX: Mengembalikan ShinyButton dan mengirim icon + teks sebagai children */}
             <ShinyButton to="/recruitment" onClick={handleLinkClick} className="w-full">
               <div className="flex items-center justify-center gap-2">
                 <RecruitmentIcon className="w-5 h-5" />

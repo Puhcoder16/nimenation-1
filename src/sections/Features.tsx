@@ -80,7 +80,9 @@ const Features = () => {
             transition={{ duration: 0.8, delay: 0.8 }}
             className="text-center"
         >
-            <ShinyButton to="/features" text="Lihat Semua Fitur" />
+            <ShinyButton to="/features">
+              <span>Lihat Semua Fitur</span>
+            </ShinyButton>
         </motion.div>
 
       </div>

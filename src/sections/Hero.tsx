@@ -38,7 +38,9 @@ const Hero = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
         >
-          <ShinyButton href="https://discord.gg/nimenation" text="Gabung Sekarang" />
+          <ShinyButton href="https://discord.gg/nimenation">
+            <span>Gabung Sekarang</span>
+          </ShinyButton>
         </motion.div>
       </div>
     </section>

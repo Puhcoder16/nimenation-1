@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import { useTheme } from '../components/ThemeContext';
 import AboutIcon from '../components/icons/AboutIcon';
 import ShinyButton from '../components/ShinyButton';
@@ -47,7 +46,9 @@ const AboutPage = () => {
         </div>
 
         <div className="text-center mt-12">
-          <ShinyButton to="/" text="Kembali ke Beranda" />
+          <ShinyButton to="/">
+            <span>Kembali ke Beranda</span>
+          </ShinyButton>
         </div>
       </div>
     </div>

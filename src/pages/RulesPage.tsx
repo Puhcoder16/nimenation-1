@@ -74,7 +74,9 @@ const RulesPage = () => {
         </div>
 
         <div className="text-center mt-12">
-          <ShinyButton to="/" text="Kembali ke Beranda" />
+          <ShinyButton to="/">
+            <span>Kembali ke Beranda</span>
+          </ShinyButton>
         </div>
       </div>
     </div>

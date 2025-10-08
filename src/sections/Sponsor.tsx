@@ -37,8 +37,12 @@ const Sponsor = () => {
                     Dukung kami untuk terus berkembang dan mengadakan event seru. Donasi bisa melalui Trakteer, Saweria, atau transfer langsung. Para donatur akan mendapatkan role spesial sebagai bentuk terima kasih kami.
                   </p>
                   <div className="flex flex-wrap gap-3 mt-4">
-                    <ShinyButton href="https://trakteer.id/nimenation" text="Trakteer" />
-                    <ShinyButton href="https://saweria.co/nimenation" text="Saweria" />
+                    <ShinyButton href="https://trakteer.id/nimenation">
+                      <span>Trakteer</span>
+                    </ShinyButton>
+                    <ShinyButton href="https://saweria.co/nimenation">
+                      <span>Saweria</span>
+                    </ShinyButton>
                   </div>
                 </div>
                 
@@ -51,7 +55,9 @@ const Sponsor = () => {
                     Buka kesempatan untuk bisnis atau usahamu berkolaborasi dengan kami. Dapatkan benefit promosi, role khusus, dan *special thanks* di setiap event.
                   </p>
                    <div className="flex flex-wrap gap-3 mt-4">
-                    <ShinyButton href="https://drive.google.com/file/d/1S3S2vxfO9q-fSL-sMPW0jPB_iJ3mPHYd/view?usp=sharing" text="Lihat Detail" />
+                    <ShinyButton href="https://drive.google.com/file/d/1S3S2vxfO9q-fSL-sMPW0jPB_iJ3mPHYd/view?usp=sharing">
+                      <span>Lihat Detail</span>
+                    </ShinyButton>
                   </div>
                 </div>
 
