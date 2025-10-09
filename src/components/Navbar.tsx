@@ -17,7 +17,7 @@ import RecruitmentIcon from './icons/RecruitmentIcon';
 import EventsIcon from './icons/EventsIcon';
 import ReviewsIcon from './icons/ReviewsIcon';
 
-import { Menu, X, ChevronDown, LogIn, LogOut } from 'lucide-react';
+import { Menu, X, ChevronDown, LogIn, LogOut, User as UserIcon } from 'lucide-react';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -81,8 +81,8 @@ const Navbar = () => {
           <div className="flex items-center justify-between p-4 border-b border-white/10">
             {user ? (
               <div className="flex items-center gap-3">
-                <img src={user.photoURL || `https://ui-avatars.com/api/?name=${user.displayName}&background=random`} alt={user.displayName || ''} className="h-10 w-10 rounded-full object-cover" />
-                <span className="font-semibold text-white text-base truncate">{user.displayName}</span>
+                <img src={user.photoURL || `https://ui-avatars.com/api/?name=${user.displayName || user.email}&background=random`} alt={user.displayName || ''} className="h-10 w-10 rounded-full object-cover" />
+                <span className="font-semibold text-white text-base truncate">{user.displayName || user.email}</span>
               </div>
             ) : (
               <Link to="/" onClick={handleLinkClick} className="flex items-center gap-3">
@@ -95,48 +95,50 @@ const Navbar = () => {
             </button>
           </div>
 
-          <div className="flex-grow overflow-y-auto p-6 space-y-2">
-            {navLinks.map((link) => link.subLinks ? (
-                <div key={link.label}>
-                  <button onClick={handleCommunityClick} className="w-full flex items-center justify-between gap-4 text-gray-200 hover:text-white transition-colors duration-200 text-xl font-semibold p-3 rounded-lg hover:bg-white/5">
-                    <div className="flex items-center gap-4"><link.icon className="w-6 h-6" /><span>{link.label}</span></div>
-                    <ChevronDown className={`w-5 h-5 transition-transform duration-300 ${isCommunityOpen ? 'rotate-180' : ''}`} />
-                  </button>
-                  <motion.div initial={false} animate={{ height: isCommunityOpen ? 'auto' : 0 }} transition={{ duration: 0.3, ease: 'easeInOut' }} className="overflow-hidden ml-6 border-l border-white/10">
-                    <div className="flex flex-col space-y-1 pt-2">
-                      {link.subLinks.map((subLink) => (
-                        <NavLink key={subLink.label} to={subLink.to} onClick={handleLinkClick} className={({ isActive }) => `flex items-center gap-3 pl-5 py-2 rounded-r-lg text-lg font-medium transition-colors duration-200 ${isActive ? 'bg-orange-500/20 text-orange-400' : 'text-gray-400 hover:text-white hover:bg-white/5'}`}>
-                          <subLink.icon className="w-5 h-5" /><span>{subLink.label}</span>
-                        </NavLink>
-                      ))}
-                    </div>
-                  </motion.div>
-                </div>
+          <div className="flex flex-col flex-grow overflow-y-auto">
+            {/* Bagian Atas: Tombol Aksi */}
+            <div className="p-6 space-y-4">
+              {user ? (
+                <button onClick={handleLogout} className="w-full flex items-center justify-center gap-2 text-gray-300 hover:text-white bg-gray-700/50 hover:bg-gray-700/80 p-3 rounded-lg transition-colors">
+                  <LogOut className="w-5 h-5" /><span>Sign Out</span>
+                </button>
               ) : (
-                <NavLink key={link.label} to={link.to} onClick={handleLinkClick} className={({ isActive }) => `flex items-center gap-4 transition-colors duration-200 text-xl font-semibold p-3 rounded-lg ${isActive ? 'bg-orange-500/20 text-orange-400' : 'text-gray-200 hover:text-white hover:bg-white/5'}`}>
-                  <link.icon className="w-6 h-6" /><span>{link.label}</span>
-                </NavLink>
-              )
-            )}
-          </div>
-
-          <div className="p-6 space-y-4 border-t border-white/10">
-            {user ? (
-              <button onClick={handleLogout} className="w-full flex items-center justify-center gap-2 text-gray-300 hover:text-white bg-gray-700/50 hover:bg-gray-700/80 p-3 rounded-lg transition-colors">
-                <LogOut className="w-5 h-5" /><span>Logout</span>
-              </button>
-            ) : (
-              <ShinyButton onClick={handleLoginRedirect} className="w-full">
-                <div className="flex items-center justify-center gap-2">
-                  <LogIn className="w-5 h-5" /><span>Masuk / Daftar</span>
-                </div>
-              </ShinyButton>
-            )}
-            <ShinyButton to="/recruitment" onClick={handleLinkClick} className="w-full">
-              <div className="flex items-center justify-center gap-2">
+                <ShinyButton onClick={handleLoginRedirect} className="w-full">
+                  <LogIn className="w-5 h-5" /><span>Sign In / Sign Up</span>
+                </ShinyButton>
+              )}
+              <ShinyButton to="/recruitment" onClick={handleLinkClick} className="w-full">
                 <RecruitmentIcon className="w-5 h-5" /><span>Recruitment</span>
-              </div>
-            </ShinyButton>
+              </ShinyButton>
+            </div>
+
+            <hr className="border-white/10 mx-6" />
+
+            {/* Bagian Bawah: Navigasi Utama */}
+            <div className="p-6 space-y-2">
+              {navLinks.map((link) => link.subLinks ? (
+                  <div key={link.label}>
+                    <button onClick={handleCommunityClick} className="w-full flex items-center justify-between gap-4 text-gray-200 hover:text-white transition-colors duration-200 text-xl font-semibold p-3 rounded-lg hover:bg-white/5">
+                      <div className="flex items-center gap-4"><link.icon className="w-6 h-6" /><span>{link.label}</span></div>
+                      <ChevronDown className={`w-5 h-5 transition-transform duration-300 ${isCommunityOpen ? 'rotate-180' : ''}`} />
+                    </button>
+                    <motion.div initial={false} animate={{ height: isCommunityOpen ? 'auto' : 0 }} transition={{ duration: 0.3, ease: 'easeInOut' }} className="overflow-hidden ml-6 border-l border-white/10">
+                      <div className="flex flex-col space-y-1 pt-2">
+                        {link.subLinks.map((subLink) => (
+                          <NavLink key={subLink.label} to={subLink.to} onClick={handleLinkClick} className={({ isActive }) => `flex items-center gap-3 pl-5 py-2 rounded-r-lg text-lg font-medium transition-colors duration-200 ${isActive ? 'bg-orange-500/20 text-orange-400' : 'text-gray-400 hover:text-white hover:bg-white/5'}`}>
+                            <subLink.icon className="w-5 h-5" /><span>{subLink.label}</span>
+                          </NavLink>
+                        ))}
+                      </div>
+                    </motion.div>
+                  </div>
+                ) : (
+                  <NavLink key={link.label} to={link.to} onClick={handleLinkClick} className={({ isActive }) => `flex items-center gap-4 transition-colors duration-200 text-xl font-semibold p-3 rounded-lg ${isActive ? 'bg-orange-500/20 text-orange-400' : 'text-gray-200 hover:text-white hover:bg-white/5'}`}>
+                    <link.icon className="w-6 h-6" /><span>{link.label}</span>
+                  </NavLink>
+                )
+              )}
+            </div>
           </div>
         </nav>
       </div>
