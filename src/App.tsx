@@ -3,30 +3,14 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
 import { ThemeProvider, useTheme } from './components/ThemeContext';
-import Hero from './sections/Hero';
-import About from './sections/About';
-import Features from './sections/Features';
-import Mascot from './sections/Mascot';
-import Faq from './sections/Faq';
-import Sponsor from './sections/Sponsor';
+
+import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
 import FeaturesPage from './pages/FeaturesPage';
 import RulesPage from './pages/RulesPage';
 import EventsPage from './pages/EventsPage';
-import ReviewsPage from './pages/ReviewsPage';
 import LoginPage from './pages/LoginPage';
-import ProtectedRoute from './components/ProtectedRoute';
-
-const HomePage = () => (
-  <>
-    <Hero />
-    <About />
-    <Features />
-    <Mascot />
-    <Faq />
-    <Sponsor />
-  </>
-);
+import ReviewsPage from './pages/ReviewsPage';
 
 const Layout = ({ children }) => {
   const theme = useTheme();
@@ -46,23 +30,13 @@ function App() {
         <ScrollToTop />
         <Layout>
           <Routes>
-            {/* Rute Publik */}
             <Route path="/" element={<HomePage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/features" element={<FeaturesPage />} />
             <Route path="/rules" element={<RulesPage />} />
             <Route path="/events" element={<EventsPage />} />
             <Route path="/login" element={<LoginPage />} />
-
-            {/* Rute Terlindungi */}
-            <Route 
-              path="/reviews" 
-              element={
-                <ProtectedRoute>
-                  <ReviewsPage />
-                </ProtectedRoute>
-              } 
-            />
+            <Route path="/reviews" element={<ReviewsPage />} />
           </Routes>
         </Layout>
       </Router>
