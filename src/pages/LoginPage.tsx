@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTheme } from '../components/ThemeContext';
 import ShinyButton from '../components/ShinyButton';
-import { GoogleLogo } from 'phosphor-react';
+import GoogleIcon from '../components/icons/GoogleIcon';
 import { 
   signInWithEmail, 
   signUpWithEmail, 
@@ -39,21 +39,17 @@ const LoginPage = () => {
     setLoading(true);
 
     if (isSignIn) {
-      // Logic untuk Sign In
       try {
         await signInWithEmail(email, password);
         navigate('/');
       } catch (err) {
-        if (err instanceof FirebaseError) {
-          if (err.code === 'auth/user-not-found' || err.code === 'auth/wrong-password' || err.code === 'auth/invalid-credential') {
-            setError('Email atau password salah.');
-          } else {
-            setError('Gagal masuk. Silakan coba lagi.');
-          }
+        if (err instanceof FirebaseError && (err.code === 'auth/user-not-found' || err.code === 'auth/wrong-password' || err.code === 'auth/invalid-credential')) {
+          setError('Email atau password salah.');
+        } else {
+          setError('Gagal masuk. Silakan coba lagi.');
         }
       }
     } else {
-      // Logic untuk Sign Up
       if (password !== confirmPassword) {
         setError('Konfirmasi password tidak cocok.');
         setLoading(false);
@@ -67,10 +63,14 @@ const LoginPage = () => {
       }
       try {
         await signUpWithEmail(fullName, email, password);
-        setSuccessMessage('Pendaftaran berhasil! Cek email Anda untuk verifikasi.');
+        setSuccessMessage('Pendaftaran berhasil! Cek email Anda untuk verifikasi. Mungkin ada di folder Spam.');
         setTimeout(() => {
           setIsSignIn(true);
           setSuccessMessage('');
+          setFullName('');
+          setEmail('');
+          setPassword('');
+          setConfirmPassword('');
         }, 5000);
       } catch (err) {
         if (err instanceof FirebaseError && err.code === 'auth/email-already-in-use') {
@@ -99,7 +99,7 @@ const LoginPage = () => {
     }
     try {
       await resetPassword(email);
-      setSuccessMessage(`Email reset password telah dikirim ke ${email}.`);
+      setSuccessMessage(`Email reset password telah dikirim ke ${email}. Cek juga folder Spam.`);
       setError('');
     } catch (err) {
       setError('Gagal mengirim email reset password.');
@@ -189,7 +189,7 @@ const LoginPage = () => {
             onClick={handleGoogleLogin}
             className="w-full flex items-center justify-center gap-3 bg-white text-gray-800 font-bold py-3 px-4 rounded-lg hover:bg-gray-200 transition-colors"
           >
-            <GoogleLogo weight="bold" className="w-6 h-6" />
+            <GoogleIcon />
             Lanjutkan dengan Google
           </button>
         </div>
