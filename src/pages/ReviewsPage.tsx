@@ -6,7 +6,6 @@ import { MessageSquare, Star, Trash2 } from 'lucide-react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
 import { auth, subscribeToReviews, addReview, deleteReview, type Review } from '../api/firebase';
-import VerificationGate from '../components/VerificationGate';
 
 const ReviewsPage = () => {
   const theme = useTheme();
@@ -60,12 +59,11 @@ const ReviewsPage = () => {
       setNewReviewRating(0);
       setError('');
     } catch (err) {
-      setError('Gagal mengirim review. Pastikan email Anda sudah terverifikasi.');
+      setError('Gagal mengirim review. Silakan coba lagi.');
     }
   };
   
   const handleDeleteReview = async (reviewId: string) => {
-    if (!confirm('Apakah Anda yakin ingin menghapus ulasan ini?')) return;
     try {
       await deleteReview(reviewId);
     } catch (err) {
@@ -79,6 +77,22 @@ const ReviewsPage = () => {
       year: 'numeric', month: 'long', day: 'numeric',
     });
   };
+
+  const ReviewForm = () => (
+    <form onSubmit={handleSubmitReview}>
+      <h3 className="text-2xl font-bold text-white mb-4">Bagikan Pendapatmu</h3>
+      <div className="flex items-center gap-2 mb-3">
+        {[1, 2, 3, 4, 5].map((star) => (
+          <Star key={star} className={`w-8 h-8 cursor-pointer transition-colors ${newReviewRating >= star ? 'text-yellow-400' : 'text-gray-600 hover:text-gray-400'}`} onClick={() => setNewReviewRating(star)}/>
+        ))}
+      </div>
+      <textarea className="w-full bg-gray-900/50 rounded-lg p-4 text-lg border border-gray-700 focus:ring-2 focus:ring-orange-500" rows={4} placeholder="Tulis ulasanmu di sini..." value={newReviewText} onChange={(e) => setNewReviewText(e.target.value)}></textarea>
+      {error && <p className="text-red-400 text-sm mt-2">{error}</p>}
+      <div className="text-right mt-4">
+        <ShinyButton type="submit"><span>Kirim Ulasan</span></ShinyButton>
+      </div>
+    </form>
+  );
 
   return (
     <div className="pt-24 sm:pt-32 pb-20">
@@ -95,20 +109,14 @@ const ReviewsPage = () => {
           <div className="flex flex-col md:flex-row items-center gap-8">
             <div className="text-center">
               <p className="text-6xl font-bold text-white">{averageRating}</p>
-              <div className="flex justify-center my-2">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className={`w-7 h-7 ${i < Math.round(averageRating) ? 'text-yellow-400' : 'text-gray-600'}`} />
-                ))}
-              </div>
+              <div className="flex justify-center my-2">{[...Array(5)].map((_, i) => (<Star key={i} className={`w-7 h-7 ${i < Math.round(averageRating) ? 'text-yellow-400' : 'text-gray-600'}`} />))}</div>
               <p className="text-gray-400">berdasarkan {totalReviews} ulasan</p>
             </div>
             <div className="w-full flex-1">
               {Object.entries(ratingDistribution).reverse().map(([star, count]) => (
                 <div key={star} className="flex items-center gap-3 text-sm">
                   <span>{star} <span className="text-gray-400">bintang</span></span>
-                  <div className="w-full bg-gray-700 rounded-full h-2.5">
-                    <div className="bg-yellow-400 h-2.5 rounded-full" style={{ width: `${totalReviews > 0 ? (count / totalReviews) * 100 : 0}%` }}></div>
-                  </div>
+                  <div className="w-full bg-gray-700 rounded-full h-2.5"><div className="bg-yellow-400 h-2.5 rounded-full" style={{ width: `${totalReviews > 0 ? (count / totalReviews) * 100 : 0}%` }}></div></div>
                   <span className="font-semibold w-8 text-right">{count}</span>
                 </div>
               ))}
@@ -117,21 +125,7 @@ const ReviewsPage = () => {
         </div>
         
         <div className={`bg-gray-800/20 backdrop-blur-sm border rounded-2xl p-8 mb-12 ${theme.sections.borders.subtle}`}>
-          <VerificationGate>
-              <form onSubmit={handleSubmitReview}>
-                  <h3 className="text-2xl font-bold text-white mb-4">Bagikan Pendapatmu</h3>
-                  <div className="flex items-center gap-2 mb-3">
-                      {[1, 2, 3, 4, 5].map((star) => (
-                          <Star key={star} className={`w-8 h-8 cursor-pointer transition-colors ${newReviewRating >= star ? 'text-yellow-400' : 'text-gray-600 hover:text-gray-400'}`} onClick={() => setNewReviewRating(star)}/>
-                      ))}
-                  </div>
-                  <textarea className="w-full bg-gray-900/50 rounded-lg p-4 text-lg border border-gray-700 focus:ring-2 focus:ring-orange-500" rows={4} placeholder="Tulis ulasanmu di sini..." value={newReviewText} onChange={(e) => setNewReviewText(e.target.value)}></textarea>
-                  {error && <p className="text-red-400 text-sm mt-2">{error}</p>}
-                  <div className="text-right mt-4">
-                      <ShinyButton type="submit"><span>Kirim Ulasan</span></ShinyButton>
-                  </div>
-              </form>
-          </VerificationGate>
+          <ReviewForm />
         </div>
 
         <div>

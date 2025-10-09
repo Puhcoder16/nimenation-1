@@ -1,15 +1,10 @@
 import { initializeApp } from "firebase/app";
 import { 
     getAuth, 
-    GoogleAuthProvider, 
+    GoogleAuthProvider,
     signInWithPopup, 
     signOut, 
-    onAuthStateChanged,
-    createUserWithEmailAndPassword,
-    signInWithEmailAndPassword,
-    sendPasswordResetEmail,
-    updateProfile,
-    sendEmailVerification
+    onAuthStateChanged
 } from "firebase/auth";
 import { 
     getFirestore, 
@@ -36,10 +31,10 @@ const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db = getFirestore(app);
 
-const provider = new GoogleAuthProvider();
+const googleProvider = new GoogleAuthProvider();
 
 export const loginWithGoogle = () => {
-  return signInWithPopup(auth, provider);
+  return signInWithPopup(auth, googleProvider);
 };
 
 export const logout = () => {
@@ -48,32 +43,6 @@ export const logout = () => {
 
 export const onAuthChange = (callback) => {
   return onAuthStateChanged(auth, callback);
-};
-
-export const signUpWithEmail = async (name, email, password) => {
-  const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-  await updateProfile(userCredential.user, {
-      displayName: name
-  });
-  await sendEmailVerification(userCredential.user);
-  return userCredential;
-};
-
-export const signInWithEmail = (email, password) => {
-  return signInWithEmailAndPassword(auth, email, password);
-};
-
-export const resetPassword = (email) => {
-  return sendPasswordResetEmail(auth, email);
-};
-
-// Fungsi baru untuk mengirim ulang email verifikasi
-export const resendVerificationEmail = async () => {
-    if (auth.currentUser) {
-        await sendEmailVerification(auth.currentUser);
-    } else {
-        throw new Error("Tidak ada pengguna yang sedang login.");
-    }
 };
 
 export interface Review {
@@ -100,9 +69,6 @@ export const subscribeToReviews = (callback) => {
 };
 
 export const addReview = (user, text, rating) => {
-  if (!user.emailVerified) {
-    throw new Error("Hanya pengguna terverifikasi yang bisa memberi ulasan.");
-  }
   return addDoc(collection(db, 'reviews'), {
     authorName: user.displayName,
     authorPhotoURL: user.photoURL || `https://ui-avatars.com/api/?name=${user.displayName}&background=random`,
