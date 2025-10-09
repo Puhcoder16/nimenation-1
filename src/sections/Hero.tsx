@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { useMemo } from 'react';
 import { useTheme } from '../components/ThemeContext';
 import ShinyButton from '../components/ShinyButton';
+import GhostIcon from '../components/icons/halloween/GhostIcon'; // Impor ikon hantu
 import { Star } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import type { Review } from '../api/firebase';
@@ -20,6 +21,14 @@ const Hero = ({ reviews, loading }: { reviews: Review[], loading: boolean }) => 
     };
   }, [reviews, loading]);
 
+  // Data untuk animasi hantu
+  const ghosts = [
+    { top: '15%', left: '10%', size: 60, duration: 8, delay: 0 },
+    { top: '25%', left: '85%', size: 80, duration: 10, delay: 1.5 },
+    { top: '70%', left: '5%', size: 50, duration: 9, delay: 2 },
+    { top: '80%', left: '90%', size: 70, duration: 11, delay: 0.5 },
+  ];
+
   return (
     <section
       id="home"
@@ -27,6 +36,28 @@ const Hero = ({ reviews, loading }: { reviews: Review[], loading: boolean }) => 
       style={{ backgroundImage: `url('/hero.webp')` }}
     >
       <div className="absolute inset-0 z-0 bg-black/50"></div>
+
+      {/* Animasi Hantu di Latar Belakang */}
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        {ghosts.map((ghost, i) => (
+          <motion.div
+            key={i}
+            className="absolute text-white/10"
+            style={{ top: ghost.top, left: ghost.left, width: ghost.size, height: ghost.size }}
+            animate={{ y: [0, -20, 0], x: [0, 10, -10, 0] }}
+            transition={{
+              duration: ghost.duration,
+              repeat: Infinity,
+              ease: 'easeInOut',
+              delay: ghost.delay,
+            }}
+          >
+            <GhostIcon />
+          </motion.div>
+        ))}
+      </div>
+
+
       <div className="relative z-10 mx-auto max-w-7xl px-4 py-20 text-center sm:px-6 lg:px-8">
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
@@ -82,12 +113,6 @@ const Hero = ({ reviews, loading }: { reviews: Review[], loading: boolean }) => 
       </div>
     </section>
   );
-};
-
-// Menambahkan varian sekunder pada ShinyButton
-const ShinyButtonWithVariant = ({ variant = 'primary', ...props }) => {
-    const secondaryClasses = 'bg-gray-700/50 ring-gray-600/50';
-    return <ShinyButton className={variant === 'secondary' ? secondaryClasses : ''} {...props} />;
 };
 
 export default Hero;
