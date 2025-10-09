@@ -4,20 +4,22 @@ import {
     GoogleAuthProvider,
     signInWithPopup, 
     signOut, 
-    onAuthStateChanged
+    onAuthStateChanged,
+    type User
 } from "firebase/auth";
 import { 
     getFirestore, 
     collection, 
-    addDoc, 
     serverTimestamp, 
     onSnapshot,
     query,
-    orderBy,
     doc,
-    deleteDoc
+    deleteDoc,
+    setDoc,
+    getDoc
 } from "firebase/firestore";
 
+// --- Konfigurasi Firebase ---
 const firebaseConfig = {
   apiKey: "AIzaSyALe0U1y9fbU_O7lqw1JOnsxMgrGsZSMS8",
   authDomain: "nimenation-website.firebaseapp.com",
@@ -31,6 +33,7 @@ const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db = getFirestore(app);
 
+// --- Otentikasi ---
 const googleProvider = new GoogleAuthProvider();
 
 export const loginWithGoogle = () => {
@@ -41,23 +44,26 @@ export const logout = () => {
   return signOut(auth);
 };
 
-export const onAuthChange = (callback) => {
+export const onAuthChange = (callback: (user: User | null) => void) => {
   return onAuthStateChanged(auth, callback);
 };
 
+// --- Firestore ---
 export interface Review {
-    id: string;
+    id: string; // ID dokumen akan sama dengan UID user
     authorName: string;
     authorPhotoURL: string;
     authorUid: string;
     text: string;
     rating: number;
-    createdAt: { seconds: number } | null;
+    createdAt: { seconds: number; nanoseconds: number } | null;
+    updatedAt?: { seconds: number; nanoseconds: number } | null;
 }
 
-export const subscribeToReviews = (callback) => {
+// Mengambil semua review
+export const subscribeToReviews = (callback: (reviews: Review[]) => void) => {
     const reviewsCollection = collection(db, 'reviews');
-    const q = query(reviewsCollection, orderBy('createdAt', 'desc'));
+    const q = query(reviewsCollection);
     
     return onSnapshot(q, (snapshot) => {
         const reviewsData: Review[] = snapshot.docs.map(doc => ({
@@ -68,17 +74,33 @@ export const subscribeToReviews = (callback) => {
     });
 };
 
-export const addReview = (user, text, rating) => {
-  return addDoc(collection(db, 'reviews'), {
+// Mengambil review spesifik dari seorang user
+export const getUserReview = async (userId: string): Promise<Review | null> => {
+    const reviewDocRef = doc(db, 'reviews', userId);
+    const docSnap = await getDoc(reviewDocRef);
+    if (docSnap.exists()) {
+        return { id: docSnap.id, ...docSnap.data() } as Review;
+    }
+    return null;
+}
+
+// Menambah atau meng-update review (1 user = 1 review)
+export const setReview = (user: User, text: string, rating: number, isUpdating: boolean) => {
+  const reviewDocRef = doc(db, 'reviews', user.uid);
+  const data = {
     authorName: user.displayName,
     authorPhotoURL: user.photoURL || `https://ui-avatars.com/api/?name=${user.displayName}&background=random`,
     authorUid: user.uid,
-    text: text,
-    rating: rating,
-    createdAt: serverTimestamp()
-  });
+    text,
+    rating,
+    updatedAt: serverTimestamp(),
+    ...( !isUpdating && { createdAt: serverTimestamp() } )
+  };
+
+  return setDoc(reviewDocRef, data, { merge: true });
 };
 
-export const deleteReview = (reviewId) => {
-  return deleteDoc(doc(db, 'reviews', reviewId));
+// Menghapus review
+export const deleteReview = (userId: string) => {
+  return deleteDoc(doc(db, 'reviews', userId));
 };

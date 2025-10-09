@@ -1,20 +1,40 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTheme } from '../components/ThemeContext';
 import ShinyButton from '../components/ShinyButton';
 import { MessageSquare, Star, Trash2 } from 'lucide-react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
-import { auth, subscribeToReviews, addReview, deleteReview, type Review } from '../api/firebase';
+import { 
+  auth, 
+  subscribeToReviews, 
+  setReview, 
+  deleteReview, 
+  getUserReview,
+  type Review 
+} from '../api/firebase';
+import type { User } from 'firebase/auth';
 
 // =================================================================
-// Komponen ReviewForm yang Dipisah
+// Komponen ReviewForm yang Dipisah dan Lebih Cerdas
 // =================================================================
-const ReviewForm = ({ user, onSubmit }) => {
+const ReviewForm = ({ user, existingReview, onSubmit, isSubmitting }) => {
   const [text, setText] = useState('');
   const [rating, setRating] = useState(0);
   const [error, setError] = useState('');
   const navigate = useNavigate();
+
+  const isUpdating = !!existingReview;
+
+  useEffect(() => {
+    if (existingReview) {
+      setText(existingReview.text);
+      setRating(existingReview.rating);
+    } else {
+      setText('');
+      setRating(0);
+    }
+  }, [existingReview]);
 
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,20 +47,18 @@ const ReviewForm = ({ user, onSubmit }) => {
       return;
     }
     
-    // Panggil fungsi onSubmit yang dikirim dari parent
-    const success = await onSubmit(text, rating);
-    if (success) {
-      setText('');
-      setRating(0);
-      setError('');
-    } else {
+    setError('');
+    const success = await onSubmit(text, rating, isUpdating);
+    if (!success) {
       setError('Gagal mengirim review. Silakan coba lagi.');
     }
   };
 
   return (
     <form onSubmit={handleFormSubmit}>
-      <h3 className="text-2xl font-bold text-white mb-4">Bagikan Pendapatmu</h3>
+      <h3 className="text-2xl font-bold text-white mb-4">
+        {isUpdating ? 'Edit Pendapatmu' : 'Bagikan Pendapatmu'}
+      </h3>
       <div className="flex items-center gap-2 mb-3">
         {[1, 2, 3, 4, 5].map((star) => (
           <Star key={star} className={`w-8 h-8 cursor-pointer transition-colors ${rating >= star ? 'text-yellow-400' : 'text-gray-600 hover:text-gray-400'}`} onClick={() => setRating(star)}/>
@@ -52,10 +70,13 @@ const ReviewForm = ({ user, onSubmit }) => {
         placeholder="Tulis ulasanmu di sini..." 
         value={text} 
         onChange={(e) => setText(e.target.value)}
+        disabled={isSubmitting}
       />
       {error && <p className="text-red-400 text-sm mt-2">{error}</p>}
       <div className="text-right mt-4">
-        <ShinyButton type="submit"><span>Kirim Ulasan</span></ShinyButton>
+        <ShinyButton type="submit" disabled={isSubmitting}>
+            <span>{isSubmitting ? 'Mengirim...' : (isUpdating ? 'Update Ulasan' : 'Kirim Ulasan')}</span>
+        </ShinyButton>
       </div>
     </form>
   );
@@ -70,16 +91,33 @@ const ReviewsPage = () => {
   const [user] = useAuthState(auth);
   
   const [reviews, setReviews] = useState<Review[]>([]);
+  const [userReview, setUserReview] = useState<Review | null>(null);
   const [loading, setLoading] = useState(true);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [pageError, setPageError] = useState('');
 
   useEffect(() => {
+    setLoading(true);
     const unsubscribe = subscribeToReviews((reviewsData) => {
         setReviews(reviewsData.sort((a, b) => (b.createdAt?.seconds ?? 0) - (a.createdAt?.seconds ?? 0)));
         setLoading(false);
     });
     return () => unsubscribe();
   }, []);
+
+  const fetchUserReview = useCallback(async (currentUser: User) => {
+    const review = await getUserReview(currentUser.uid);
+    setUserReview(review);
+  }, []);
+
+  useEffect(() => {
+    if (user) {
+      fetchUserReview(user);
+    } else {
+      setUserReview(null);
+    }
+  }, [user, fetchUserReview]);
+
 
   const { averageRating, totalReviews, ratingDistribution } = useMemo(() => {
     if (reviews.length === 0) {
@@ -88,7 +126,7 @@ const ReviewsPage = () => {
     const total = reviews.reduce((acc, review) => acc + review.rating, 0);
     const distribution = { 5: 0, 4: 0, 3: 0, 2: 0, 1: 0 };
     reviews.forEach(review => {
-      distribution[review.rating] = (distribution[review.rating] || 0) + 1;
+      if(review.rating) distribution[review.rating] = (distribution[review.rating] || 0) + 1;
     });
     return {
       averageRating: parseFloat((total / reviews.length).toFixed(1)),
@@ -97,20 +135,25 @@ const ReviewsPage = () => {
     };
   }, [reviews]);
 
-  const handleAddNewReview = async (text, rating) => {
+  const handleSetReview = async (text: string, rating: number, isUpdating: boolean) => {
     if(!user) return false;
+    setIsSubmitting(true);
     try {
-      await addReview(user, text, rating);
-      return true; // Berhasil
+      await setReview(user, text, rating, isUpdating);
+      await fetchUserReview(user); // Ambil ulang data review user setelah submit
+      setIsSubmitting(false);
+      return true;
     } catch (err) {
       console.error(err);
-      return false; // Gagal
+      setIsSubmitting(false);
+      return false;
     }
   };
   
-  const handleDeleteReview = async (reviewId: string) => {
+  const handleDeleteReview = async (userId: string) => {
     try {
-      await deleteReview(reviewId);
+      await deleteReview(userId);
+      setUserReview(null); // Reset form setelah hapus
     } catch (err) {
       setPageError('Gagal menghapus review.');
     }
@@ -137,7 +180,7 @@ const ReviewsPage = () => {
         <div className={`bg-gray-800/20 backdrop-blur-sm border rounded-2xl p-8 mb-12 ${theme.sections.borders.subtle}`}>
           <div className="flex flex-col md:flex-row items-center gap-8">
             <div className="text-center">
-              <p className="text-6xl font-bold text-white">{averageRating}</p>
+              <p className="text-6xl font-bold text-white">{averageRating || 0}</p>
               <div className="flex justify-center my-2">{[...Array(5)].map((_, i) => (<Star key={i} className={`w-7 h-7 ${i < Math.round(averageRating) ? 'text-yellow-400' : 'text-gray-600'}`} />))}</div>
               <p className="text-gray-400">berdasarkan {totalReviews} ulasan</p>
             </div>
@@ -154,13 +197,13 @@ const ReviewsPage = () => {
         </div>
         
         <div className={`bg-gray-800/20 backdrop-blur-sm border rounded-2xl p-8 mb-12 ${theme.sections.borders.subtle}`}>
-          <ReviewForm user={user} onSubmit={handleAddNewReview} />
+          <ReviewForm user={user} existingReview={userReview} onSubmit={handleSetReview} isSubmitting={isSubmitting}/>
         </div>
 
         <div>
           <h2 className="text-3xl font-bold text-white mb-6">Semua Ulasan ({totalReviews})</h2>
           {pageError && <p className="text-red-400 text-center mb-4">{pageError}</p>}
-          {loading ? <p className="text-center text-gray-400">Memuat ulasan...</p> : reviews.length > 0 ? (
+          {loading ? <p className="text-center text-gray-400 py-10">Memuat ulasan...</p> : reviews.length > 0 ? (
             <div className="space-y-6">
               {reviews.map((review) => (
                 <div key={review.id} className={`bg-gray-800/20 p-6 rounded-xl border ${theme.sections.borders.subtle}`}>
