@@ -24,7 +24,6 @@ const firebaseConfig = {
   apiKey: "AIzaSyALe0U1y9fbU_O7lqw1JOnsxMgrGsZSMS8",
   authDomain: "nimenation-website.firebaseapp.com",
   projectId: "nimenation-website",
-  // INI BAGIAN YANG DIPERBAIKI
   storageBucket: "nimenation-website.appspot.com",
   messagingSenderId: "1000097007041",
   appId: "1:1000097007041:web:3a2afbce8b84d407069b40"
@@ -51,7 +50,7 @@ export const onAuthChange = (callback: (user: User | null) => void) => {
 
 // --- Firestore ---
 export interface Review {
-    id: string;
+    id: string; // ID dokumen akan sama dengan UID user
     authorName: string;
     authorPhotoURL: string;
     authorUid: string;
@@ -61,6 +60,7 @@ export interface Review {
     updatedAt?: { seconds: number; nanoseconds: number } | null;
 }
 
+// Mengambil semua review
 export const subscribeToReviews = (callback: (reviews: Review[]) => void) => {
     const reviewsCollection = collection(db, 'reviews');
     const q = query(reviewsCollection);
@@ -71,26 +71,20 @@ export const subscribeToReviews = (callback: (reviews: Review[]) => void) => {
             ...doc.data()
         } as Review));
         callback(reviewsData);
-    }, (error) => {
-        console.error("Gagal subscribe ke reviews:", error);
-        callback([]); // Kirim array kosong jika ada error
     });
 };
 
+// Mengambil review spesifik dari seorang user
 export const getUserReview = async (userId: string): Promise<Review | null> => {
-    try {
-        const reviewDocRef = doc(db, 'reviews', userId);
-        const docSnap = await getDoc(reviewDocRef);
-        if (docSnap.exists()) {
-            return { id: docSnap.id, ...docSnap.data() } as Review;
-        }
-        return null;
-    } catch (error) {
-        console.error("Gagal mendapatkan review user:", error);
-        return null;
+    const reviewDocRef = doc(db, 'reviews', userId);
+    const docSnap = await getDoc(reviewDocRef);
+    if (docSnap.exists()) {
+        return { id: docSnap.id, ...docSnap.data() } as Review;
     }
+    return null;
 }
 
+// Menambah atau meng-update review (1 user = 1 review)
 export const setReview = (user: User, text: string, rating: number, isUpdating: boolean) => {
   const reviewDocRef = doc(db, 'reviews', user.uid);
   const data = {
@@ -106,6 +100,7 @@ export const setReview = (user: User, text: string, rating: number, isUpdating: 
   return setDoc(reviewDocRef, data, { merge: true });
 };
 
+// Menghapus review
 export const deleteReview = (userId: string) => {
   return deleteDoc(doc(db, 'reviews', userId));
 };

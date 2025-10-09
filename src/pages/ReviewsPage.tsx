@@ -15,9 +15,7 @@ import {
 } from '../api/firebase';
 import type { User } from 'firebase/auth';
 
-// =================================================================
-// Komponen ReviewForm
-// =================================================================
+// Komponen ReviewForm (Tidak ada perubahan, tetap sama)
 const ReviewForm = ({ user, existingReview, onSubmit, isSubmitting }) => {
   const [text, setText] = useState('');
   const [rating, setRating] = useState(0);
@@ -81,10 +79,7 @@ const ReviewForm = ({ user, existingReview, onSubmit, isSubmitting }) => {
   );
 };
 
-
-// =================================================================
 // Komponen Utama ReviewsPage
-// =================================================================
 const ReviewsPage = () => {
   const theme = useTheme();
   const [user, authLoading] = useAuthState(auth);
@@ -124,7 +119,6 @@ const ReviewsPage = () => {
     const total = reviews.reduce((acc, review) => acc + (review.rating || 0), 0);
     const distribution = { 5: 0, 4: 0, 3: 0, 2: 0, 1: 0 };
     reviews.forEach(review => {
-      // Perbaikan: Pastikan rating ada sebelum menambahkannya ke distribusi
       if (review.rating && distribution[review.rating] !== undefined) {
         distribution[review.rating]++;
       }
@@ -145,7 +139,7 @@ const ReviewsPage = () => {
       setIsSubmitting(false);
       return true;
     } catch (err) {
-      console.error(err);
+      console.error("Error saat setReview:", err);
       setIsSubmitting(false);
       return false;
     }
@@ -171,6 +165,7 @@ const ReviewsPage = () => {
   return (
     <div className="pt-24 sm:pt-32 pb-20">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header dan Statistik (Tidak ada perubahan) */}
         <div className="text-center mb-12">
             <div className="flex justify-center items-center gap-4">
                 <MessageSquare className="w-10 h-10 text-orange-400" />
@@ -178,7 +173,6 @@ const ReviewsPage = () => {
             </div>
             <p className="mt-4 text-xl text-gray-300 max-w-2xl mx-auto">Lihat apa kata para Nimetizen tentang server kami!</p>
         </div>
-
         <div className={`bg-gray-800/20 backdrop-blur-sm border rounded-2xl p-8 mb-12 ${theme.sections.borders.subtle}`}>
           <div className="flex flex-col md:flex-row items-center gap-8">
             <div className="text-center">
@@ -198,10 +192,12 @@ const ReviewsPage = () => {
           </div>
         </div>
         
+        {/* Form Review */}
         <div className={`bg-gray-800/20 backdrop-blur-sm border rounded-2xl p-8 mb-12 ${theme.sections.borders.subtle}`}>
           <ReviewForm user={user} existingReview={userReview} onSubmit={handleSetReview} isSubmitting={isSubmitting}/>
         </div>
 
+        {/* Daftar Review */}
         <div>
           <h2 className="text-3xl font-bold text-white mb-6">Semua Ulasan ({totalReviews})</h2>
           {pageError && <p className="text-red-400 text-center mb-4">{pageError}</p>}
