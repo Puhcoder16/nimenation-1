@@ -7,16 +7,71 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 
 import { auth, subscribeToReviews, addReview, deleteReview, type Review } from '../api/firebase';
 
+// =================================================================
+// Komponen ReviewForm yang Dipisah
+// =================================================================
+const ReviewForm = ({ user, onSubmit }) => {
+  const [text, setText] = useState('');
+  const [rating, setRating] = useState(0);
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
+
+  const handleFormSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!user) {
+      navigate('/login');
+      return;
+    }
+    if (text.trim() === '' || rating === 0) {
+      setError('Rating dan isi review tidak boleh kosong.');
+      return;
+    }
+    
+    // Panggil fungsi onSubmit yang dikirim dari parent
+    const success = await onSubmit(text, rating);
+    if (success) {
+      setText('');
+      setRating(0);
+      setError('');
+    } else {
+      setError('Gagal mengirim review. Silakan coba lagi.');
+    }
+  };
+
+  return (
+    <form onSubmit={handleFormSubmit}>
+      <h3 className="text-2xl font-bold text-white mb-4">Bagikan Pendapatmu</h3>
+      <div className="flex items-center gap-2 mb-3">
+        {[1, 2, 3, 4, 5].map((star) => (
+          <Star key={star} className={`w-8 h-8 cursor-pointer transition-colors ${rating >= star ? 'text-yellow-400' : 'text-gray-600 hover:text-gray-400'}`} onClick={() => setRating(star)}/>
+        ))}
+      </div>
+      <textarea 
+        className="w-full bg-gray-900/50 rounded-lg p-4 text-lg border border-gray-700 focus:ring-2 focus:ring-orange-500" 
+        rows={4} 
+        placeholder="Tulis ulasanmu di sini..." 
+        value={text} 
+        onChange={(e) => setText(e.target.value)}
+      />
+      {error && <p className="text-red-400 text-sm mt-2">{error}</p>}
+      <div className="text-right mt-4">
+        <ShinyButton type="submit"><span>Kirim Ulasan</span></ShinyButton>
+      </div>
+    </form>
+  );
+};
+
+
+// =================================================================
+// Komponen Utama ReviewsPage
+// =================================================================
 const ReviewsPage = () => {
   const theme = useTheme();
   const [user] = useAuthState(auth);
-  const navigate = useNavigate();
   
   const [reviews, setReviews] = useState<Review[]>([]);
-  const [newReviewText, setNewReviewText] = useState('');
-  const [newReviewRating, setNewReviewRating] = useState(0);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
+  const [pageError, setPageError] = useState('');
 
   useEffect(() => {
     const unsubscribe = subscribeToReviews((reviewsData) => {
@@ -42,24 +97,14 @@ const ReviewsPage = () => {
     };
   }, [reviews]);
 
-  const handleSubmitReview = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!user) {
-      navigate('/login');
-      return;
-    }
-    if (newReviewText.trim() === '' || newReviewRating === 0) {
-      setError('Rating dan isi review tidak boleh kosong.');
-      return;
-    }
-    
+  const handleAddNewReview = async (text, rating) => {
+    if(!user) return false;
     try {
-      await addReview(user, newReviewText, newReviewRating);
-      setNewReviewText('');
-      setNewReviewRating(0);
-      setError('');
+      await addReview(user, text, rating);
+      return true; // Berhasil
     } catch (err) {
-      setError('Gagal mengirim review. Silakan coba lagi.');
+      console.error(err);
+      return false; // Gagal
     }
   };
   
@@ -67,7 +112,7 @@ const ReviewsPage = () => {
     try {
       await deleteReview(reviewId);
     } catch (err) {
-      setError('Gagal menghapus review.');
+      setPageError('Gagal menghapus review.');
     }
   };
 
@@ -77,22 +122,6 @@ const ReviewsPage = () => {
       year: 'numeric', month: 'long', day: 'numeric',
     });
   };
-
-  const ReviewForm = () => (
-    <form onSubmit={handleSubmitReview}>
-      <h3 className="text-2xl font-bold text-white mb-4">Bagikan Pendapatmu</h3>
-      <div className="flex items-center gap-2 mb-3">
-        {[1, 2, 3, 4, 5].map((star) => (
-          <Star key={star} className={`w-8 h-8 cursor-pointer transition-colors ${newReviewRating >= star ? 'text-yellow-400' : 'text-gray-600 hover:text-gray-400'}`} onClick={() => setNewReviewRating(star)}/>
-        ))}
-      </div>
-      <textarea className="w-full bg-gray-900/50 rounded-lg p-4 text-lg border border-gray-700 focus:ring-2 focus:ring-orange-500" rows={4} placeholder="Tulis ulasanmu di sini..." value={newReviewText} onChange={(e) => setNewReviewText(e.target.value)}></textarea>
-      {error && <p className="text-red-400 text-sm mt-2">{error}</p>}
-      <div className="text-right mt-4">
-        <ShinyButton type="submit"><span>Kirim Ulasan</span></ShinyButton>
-      </div>
-    </form>
-  );
 
   return (
     <div className="pt-24 sm:pt-32 pb-20">
@@ -125,11 +154,12 @@ const ReviewsPage = () => {
         </div>
         
         <div className={`bg-gray-800/20 backdrop-blur-sm border rounded-2xl p-8 mb-12 ${theme.sections.borders.subtle}`}>
-          <ReviewForm />
+          <ReviewForm user={user} onSubmit={handleAddNewReview} />
         </div>
 
         <div>
           <h2 className="text-3xl font-bold text-white mb-6">Semua Ulasan ({totalReviews})</h2>
+          {pageError && <p className="text-red-400 text-center mb-4">{pageError}</p>}
           {loading ? <p className="text-center text-gray-400">Memuat ulasan...</p> : reviews.length > 0 ? (
             <div className="space-y-6">
               {reviews.map((review) => (
