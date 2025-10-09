@@ -9,7 +9,7 @@ import {
     signInWithEmailAndPassword,
     sendPasswordResetEmail,
     updateProfile,
-    sendEmailVerification // Import fungsi baru
+    sendEmailVerification
 } from "firebase/auth";
 import { 
     getFirestore, 
@@ -50,18 +50,12 @@ export const onAuthChange = (callback) => {
   return onAuthStateChanged(auth, callback);
 };
 
-// Fungsi Sign Up yang sudah di-upgrade
 export const signUpWithEmail = async (name, email, password) => {
   const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-  
-  // Setelah user dibuat, update profilnya dengan nama
   await updateProfile(userCredential.user, {
       displayName: name
   });
-
-  // Kirim email verifikasi
   await sendEmailVerification(userCredential.user);
-
   return userCredential;
 };
 
@@ -71,6 +65,15 @@ export const signInWithEmail = (email, password) => {
 
 export const resetPassword = (email) => {
   return sendPasswordResetEmail(auth, email);
+};
+
+// Fungsi baru untuk mengirim ulang email verifikasi
+export const resendVerificationEmail = async () => {
+    if (auth.currentUser) {
+        await sendEmailVerification(auth.currentUser);
+    } else {
+        throw new Error("Tidak ada pengguna yang sedang login.");
+    }
 };
 
 export interface Review {
@@ -97,6 +100,9 @@ export const subscribeToReviews = (callback) => {
 };
 
 export const addReview = (user, text, rating) => {
+  if (!user.emailVerified) {
+    throw new Error("Hanya pengguna terverifikasi yang bisa memberi ulasan.");
+  }
   return addDoc(collection(db, 'reviews'), {
     authorName: user.displayName,
     authorPhotoURL: user.photoURL || `https://ui-avatars.com/api/?name=${user.displayName}&background=random`,

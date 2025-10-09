@@ -7,7 +7,8 @@ import {
   signInWithEmail, 
   signUpWithEmail, 
   loginWithGoogle,
-  resetPassword
+  resetPassword,
+  logout
 } from '../api/firebase';
 import { FirebaseError } from 'firebase/app';
 
@@ -40,8 +41,13 @@ const LoginPage = () => {
 
     if (isSignIn) {
       try {
-        await signInWithEmail(email, password);
-        navigate('/');
+        const userCredential = await signInWithEmail(email, password);
+        if (!userCredential.user.emailVerified) {
+          await logout(); // Langsung logout lagi jika belum verifikasi
+          setError('Email Anda belum diverifikasi. Silakan cek inbox/spam untuk link verifikasi.');
+        } else {
+          navigate('/'); // Hanya lanjut jika sudah verifikasi
+        }
       } catch (err) {
         if (err instanceof FirebaseError && (err.code === 'auth/user-not-found' || err.code === 'auth/wrong-password' || err.code === 'auth/invalid-credential')) {
           setError('Email atau password salah.');
@@ -50,6 +56,7 @@ const LoginPage = () => {
         }
       }
     } else {
+      // Logic Sign Up (tetap sama)
       if (password !== confirmPassword) {
         setError('Konfirmasi password tidak cocok.');
         setLoading(false);
@@ -67,10 +74,7 @@ const LoginPage = () => {
         setTimeout(() => {
           setIsSignIn(true);
           setSuccessMessage('');
-          setFullName('');
-          setEmail('');
-          setPassword('');
-          setConfirmPassword('');
+          setFullName(''); setEmail(''); setPassword(''); setConfirmPassword('');
         }, 5000);
       } catch (err) {
         if (err instanceof FirebaseError && err.code === 'auth/email-already-in-use') {
@@ -127,40 +131,12 @@ const LoginPage = () => {
 
           <form onSubmit={handleFormSubmit} className="space-y-6">
             {!isSignIn && (
-              <input
-                type="text"
-                placeholder="Nama Lengkap"
-                value={fullName}
-                onChange={(e) => setFullName(e.target.value)}
-                required
-                className="w-full bg-gray-900/50 rounded-lg p-4 text-lg border border-gray-700 focus:ring-2 focus:ring-orange-500"
-              />
+              <input type="text" placeholder="Nama Lengkap" value={fullName} onChange={(e) => setFullName(e.target.value)} required className="w-full bg-gray-900/50 rounded-lg p-4 text-lg border border-gray-700 focus:ring-2 focus:ring-orange-500"/>
             )}
-            <input
-              type="email"
-              placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              className="w-full bg-gray-900/50 rounded-lg p-4 text-lg border border-gray-700 focus:ring-2 focus:ring-orange-500"
-            />
-            <input
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              className="w-full bg-gray-900/50 rounded-lg p-4 text-lg border border-gray-700 focus:ring-2 focus:ring-orange-500"
-            />
+            <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required className="w-full bg-gray-900/50 rounded-lg p-4 text-lg border border-gray-700 focus:ring-2 focus:ring-orange-500"/>
+            <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required className="w-full bg-gray-900/50 rounded-lg p-4 text-lg border border-gray-700 focus:ring-2 focus:ring-orange-500"/>
             {!isSignIn && (
-              <input
-                type="password"
-                placeholder="Konfirmasi Password"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                required
-                className="w-full bg-gray-900/50 rounded-lg p-4 text-lg border border-gray-700 focus:ring-2 focus:ring-orange-500"
-              />
+              <input type="password" placeholder="Konfirmasi Password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required className="w-full bg-gray-900/50 rounded-lg p-4 text-lg border border-gray-700 focus:ring-2 focus:ring-orange-500"/>
             )}
 
             {error && <p className="text-red-400 text-center">{error}</p>}
@@ -185,10 +161,7 @@ const LoginPage = () => {
             <hr className="w-full border-gray-700" />
           </div>
 
-          <button
-            onClick={handleGoogleLogin}
-            className="w-full flex items-center justify-center gap-3 bg-white text-gray-800 font-bold py-3 px-4 rounded-lg hover:bg-gray-200 transition-colors"
-          >
+          <button onClick={handleGoogleLogin} className="w-full flex items-center justify-center gap-3 bg-white text-gray-800 font-bold py-3 px-4 rounded-lg hover:bg-gray-200 transition-colors">
             <GoogleIcon />
             Lanjutkan dengan Google
           </button>
