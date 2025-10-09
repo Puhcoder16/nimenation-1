@@ -21,12 +21,14 @@ const Hero = ({ reviews, loading }: { reviews: Review[], loading: boolean }) => 
     };
   }, [reviews, loading]);
 
-  // Data untuk animasi hantu
+  // Data untuk animasi hantu (lebih besar dan lebih banyak)
   const ghosts = [
-    { top: '15%', left: '10%', size: 60, duration: 8, delay: 0 },
-    { top: '25%', left: '85%', size: 80, duration: 10, delay: 1.5 },
-    { top: '70%', left: '5%', size: 50, duration: 9, delay: 2 },
-    { top: '80%', left: '90%', size: 70, duration: 11, delay: 0.5 },
+    { top: '15%', left: '10%', size: 90, duration: 12, delay: 0 },
+    { top: '25%', left: '85%', size: 120, duration: 10, delay: 1.5 },
+    { top: '70%', left: '5%', size: 75, duration: 11, delay: 2 },
+    { top: '80%', left: '90%', size: 105, duration: 13, delay: 0.5 },
+    { top: '50%', left: '50%', size: 85, duration: 9, delay: 2.5 },
+    { top: '5%', left: '40%', size: 100, duration: 14, delay: 3 },
   ];
 
   return (
