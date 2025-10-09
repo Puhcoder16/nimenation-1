@@ -13,19 +13,20 @@ import AboutPage from './pages/AboutPage';
 import FeaturesPage from './pages/FeaturesPage';
 import RulesPage from './pages/RulesPage';
 import EventsPage from './pages/EventsPage';
+import ReviewsPage from './pages/ReviewsPage';
+import LoginPage from './pages/LoginPage';
+import ProtectedRoute from './components/ProtectedRoute';
 
-const HomePage = () => {
-  return (
-    <>
-      <Hero />
-      <About />
-      <Features />
-      <Mascot />
-      <Faq />
-      <Sponsor />
-    </>
-  );
-};
+const HomePage = () => (
+  <>
+    <Hero />
+    <About />
+    <Features />
+    <Mascot />
+    <Faq />
+    <Sponsor />
+  </>
+);
 
 const Layout = ({ children }) => {
   const theme = useTheme();
@@ -45,11 +46,23 @@ function App() {
         <ScrollToTop />
         <Layout>
           <Routes>
+            {/* Rute Publik */}
             <Route path="/" element={<HomePage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/features" element={<FeaturesPage />} />
             <Route path="/rules" element={<RulesPage />} />
             <Route path="/events" element={<EventsPage />} />
+            <Route path="/login" element={<LoginPage />} />
+
+            {/* Rute Terlindungi */}
+            <Route 
+              path="/reviews" 
+              element={
+                <ProtectedRoute>
+                  <ReviewsPage />
+                </ProtectedRoute>
+              } 
+            />
           </Routes>
         </Layout>
       </Router>
