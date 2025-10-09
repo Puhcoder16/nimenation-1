@@ -1,27 +1,27 @@
-import { initializeApp } from 'firebase/app';
+import { initializeApp } from "firebase/app";
 import { 
     getAuth, 
-    onAuthStateChanged, 
     GoogleAuthProvider, 
     signInWithPopup, 
-    signOut,
+    signOut, 
+    onAuthStateChanged,
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
     sendPasswordResetEmail,
     updateProfile,
-    type User
-} from 'firebase/auth';
+    sendEmailVerification // Import fungsi baru
+} from "firebase/auth";
 import { 
     getFirestore, 
     collection, 
-    query, 
-    onSnapshot, 
     addDoc, 
-    deleteDoc, 
-    doc, 
-    serverTimestamp,
-    type Unsubscribe
-} from 'firebase/firestore';
+    serverTimestamp, 
+    onSnapshot,
+    query,
+    orderBy,
+    doc,
+    deleteDoc
+} from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyALe0U1y9fbU_O7lqw1JOnsxMgrGsZSMS8",
@@ -36,85 +36,77 @@ const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db = getFirestore(app);
 
+const provider = new GoogleAuthProvider();
+
+export const loginWithGoogle = () => {
+  return signInWithPopup(auth, provider);
+};
+
+export const logout = () => {
+  return signOut(auth);
+};
+
+export const onAuthChange = (callback) => {
+  return onAuthStateChanged(auth, callback);
+};
+
+// Fungsi Sign Up yang sudah di-upgrade
+export const signUpWithEmail = async (name, email, password) => {
+  const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+  
+  // Setelah user dibuat, update profilnya dengan nama
+  await updateProfile(userCredential.user, {
+      displayName: name
+  });
+
+  // Kirim email verifikasi
+  await sendEmailVerification(userCredential.user);
+
+  return userCredential;
+};
+
+export const signInWithEmail = (email, password) => {
+  return signInWithEmailAndPassword(auth, email, password);
+};
+
+export const resetPassword = (email) => {
+  return sendPasswordResetEmail(auth, email);
+};
+
 export interface Review {
-  id: string;
-  text: string;
-  rating: number;
-  authorName: string;
-  authorPhotoURL: string;
-  authorUid: string;
-  createdAt: { seconds: number; nanoseconds: number; } | null;
+    id: string;
+    authorName: string;
+    authorPhotoURL: string;
+    authorUid: string;
+    text: string;
+    rating: number;
+    createdAt: { seconds: number } | null;
 }
 
-// --- Fungsi Otentikasi Dasar ---
-export const onAuthChange = (callback: (user: User | null) => void): Unsubscribe => {
-    return onAuthStateChanged(auth, callback);
-};
-
-export const logout = async (): Promise<void> => {
-    await signOut(auth);
-};
-
-// --- Fungsi Login Pihak Ketiga ---
-export const loginWithGoogle = async (): Promise<void> => {
-    const provider = new GoogleAuthProvider();
-    await signInWithPopup(auth, provider);
-};
-
-// --- Fungsi Baru untuk Email/Password ---
-export const signUpWithEmail = async (name: string, email: string, pass: string): Promise<void> => {
-    const userCredential = await createUserWithEmailAndPassword(auth, email, pass);
-    if (userCredential.user) {
-        await updateProfile(userCredential.user, { displayName: name });
-    }
-};
-
-export const signInWithEmail = async (email: string, pass: string): Promise<void> => {
-    await signInWithEmailAndPassword(auth, email, pass);
-};
-
-export const resetPassword = async (email: string): Promise<void> => {
-    await sendPasswordResetEmail(auth, email);
-};
-
-
-// --- Fungsi Firestore (Reviews) ---
-export const subscribeToReviews = (callback: (reviews: Review[]) => void): Unsubscribe => {
-    const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-    const reviewsCollectionRef = collection(db, `/artifacts/${appId}/public/data/reviews`);
-    const q = query(reviewsCollectionRef);
-
+export const subscribeToReviews = (callback) => {
+    const reviewsCollection = collection(db, 'reviews');
+    const q = query(reviewsCollection, orderBy('createdAt', 'desc'));
+    
     return onSnapshot(q, (snapshot) => {
-        let reviewsData = snapshot.docs.map(doc => ({
+        const reviewsData: Review[] = snapshot.docs.map(doc => ({
             id: doc.id,
-            ...doc.data(),
-        })) as Review[];
-        
-        reviewsData.sort((a, b) => {
-            if (!a.createdAt) return 1;
-            if (!b.createdAt) return -1;
-            return b.createdAt.seconds - a.createdAt.seconds;
-        });
-
+            ...doc.data()
+        } as Review));
         callback(reviewsData);
     });
 };
 
-export const addReview = async (user: User, text: string, rating: number): Promise<void> => {
-    const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-    const reviewsCollectionRef = collection(db, `/artifacts/${appId}/public/data/reviews`);
-    await addDoc(reviewsCollectionRef, {
-        text,
-        rating,
-        authorName: user.displayName,
-        authorPhotoURL: user.photoURL,
-        authorUid: user.uid,
-        createdAt: serverTimestamp(),
-    });
+export const addReview = (user, text, rating) => {
+  return addDoc(collection(db, 'reviews'), {
+    authorName: user.displayName,
+    authorPhotoURL: user.photoURL || `https://ui-avatars.com/api/?name=${user.displayName}&background=random`,
+    authorUid: user.uid,
+    text: text,
+    rating: rating,
+    createdAt: serverTimestamp()
+  });
 };
 
-export const deleteReview = async (reviewId: string): Promise<void> => {
-    const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-    const reviewDocRef = doc(db, `/artifacts/${appId}/public/data/reviews`, reviewId);
-    await deleteDoc(reviewDocRef);
+export const deleteReview = (reviewId) => {
+  return deleteDoc(doc(db, 'reviews', reviewId));
 };

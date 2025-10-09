@@ -2,103 +2,194 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTheme } from '../components/ThemeContext';
 import ShinyButton from '../components/ShinyButton';
-import { loginWithGoogle, signInWithEmail, signUpWithEmail, resetPassword } from '../api/firebase';
-import { LogIn, UserPlus } from 'lucide-react';
+import { GoogleLogo } from 'phosphor-react';
+import { 
+  signInWithEmail, 
+  signUpWithEmail, 
+  loginWithGoogle,
+  resetPassword
+} from '../api/firebase';
+import { FirebaseError } from 'firebase/app';
 
 const LoginPage = () => {
+  const [isSignIn, setIsSignIn] = useState(true);
   const theme = useTheme();
   const navigate = useNavigate();
-  const [isSignIn, setIsSignIn] = useState(true);
+
+  const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [name, setName] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  
   const [error, setError] = useState('');
-  const [message, setMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+  const [loading, setLoading] = useState(false);
+  
+  const validatePassword = (pass: string) => {
+    if (pass.length < 8) return 'Password harus minimal 8 karakter.';
+    if (!/[A-Z]/.test(pass)) return 'Password harus mengandung minimal satu huruf besar.';
+    if (!/\d/.test(pass)) return 'Password harus mengandung minimal satu angka.';
+    return '';
+  };
 
+  const handleFormSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError('');
+    setSuccessMessage('');
+    setLoading(true);
+
+    if (isSignIn) {
+      // Logic untuk Sign In
+      try {
+        await signInWithEmail(email, password);
+        navigate('/');
+      } catch (err) {
+        if (err instanceof FirebaseError) {
+          if (err.code === 'auth/user-not-found' || err.code === 'auth/wrong-password' || err.code === 'auth/invalid-credential') {
+            setError('Email atau password salah.');
+          } else {
+            setError('Gagal masuk. Silakan coba lagi.');
+          }
+        }
+      }
+    } else {
+      // Logic untuk Sign Up
+      if (password !== confirmPassword) {
+        setError('Konfirmasi password tidak cocok.');
+        setLoading(false);
+        return;
+      }
+      const passwordError = validatePassword(password);
+      if (passwordError) {
+        setError(passwordError);
+        setLoading(false);
+        return;
+      }
+      try {
+        await signUpWithEmail(fullName, email, password);
+        setSuccessMessage('Pendaftaran berhasil! Cek email Anda untuk verifikasi.');
+        setTimeout(() => {
+          setIsSignIn(true);
+          setSuccessMessage('');
+        }, 5000);
+      } catch (err) {
+        if (err instanceof FirebaseError && err.code === 'auth/email-already-in-use') {
+          setError('Email ini sudah terdaftar.');
+        } else {
+          setError('Gagal mendaftar. Silakan coba lagi.');
+        }
+      }
+    }
+    setLoading(false);
+  };
+  
   const handleGoogleLogin = async () => {
     try {
       await loginWithGoogle();
-      navigate('/reviews');
+      navigate('/');
     } catch (err) {
-      setError('Gagal login dengan Google.');
-    }
-  };
-
-  const handleEmailAuth = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError('');
-    setMessage('');
-    try {
-      if (isSignIn) {
-        await signInWithEmail(email, password);
-        navigate('/reviews');
-      } else {
-        await signUpWithEmail(name, email, password);
-        navigate('/reviews');
-      }
-    } catch (err: any) {
-      setError(err.message || 'Terjadi kesalahan.');
+      setError('Gagal login dengan Google. Silakan coba lagi.');
     }
   };
 
   const handlePasswordReset = async () => {
-      if (!email) {
-          setError('Masukkan email Anda untuk reset password.');
-          return;
-      }
-      try {
-          await resetPassword(email);
-          setMessage('Link reset password telah dikirim ke email Anda.');
-      } catch (err) {
-          setError('Gagal mengirim link reset password.');
-      }
-  }
+    if (!email) {
+      setError('Masukkan email Anda terlebih dahulu untuk reset password.');
+      return;
+    }
+    try {
+      await resetPassword(email);
+      setSuccessMessage(`Email reset password telah dikirim ke ${email}.`);
+      setError('');
+    } catch (err) {
+      setError('Gagal mengirim email reset password.');
+    }
+  };
 
   return (
     <div className="pt-24 sm:pt-32 pb-20">
-      <div className="max-w-md mx-auto px-4">
-        <div className={`bg-gray-800/20 backdrop-blur-sm border rounded-2xl p-8 ${theme.sections.borders.subtle}`}>
-          <div className="flex border-b border-gray-700 mb-6">
-            <button onClick={() => setIsSignIn(true)} className={`w-1/2 pb-3 text-lg font-semibold ${isSignIn ? 'text-orange-400 border-b-2 border-orange-400' : 'text-gray-400'}`}>
+      <div className="max-w-md mx-auto px-4 sm:px-6 lg:px-8">
+        <div className={`bg-gray-800/20 backdrop-blur-sm border rounded-2xl p-8 md:p-10 ${theme.sections.borders.subtle}`}>
+          <div className="flex mb-8 border-b border-gray-700">
+            <button
+              onClick={() => { setIsSignIn(true); setError(''); setSuccessMessage(''); }}
+              className={`w-1/2 pb-3 text-xl font-bold transition-colors ${isSignIn ? 'text-orange-400 border-b-2 border-orange-400' : 'text-gray-400'}`}
+            >
               Masuk
             </button>
-            <button onClick={() => setIsSignIn(false)} className={`w-1/2 pb-3 text-lg font-semibold ${!isSignIn ? 'text-orange-400 border-b-2 border-orange-400' : 'text-gray-400'}`}>
+            <button
+              onClick={() => { setIsSignIn(false); setError(''); setSuccessMessage(''); }}
+              className={`w-1/2 pb-3 text-xl font-bold transition-colors ${!isSignIn ? 'text-orange-400 border-b-2 border-orange-400' : 'text-gray-400'}`}
+            >
               Daftar
             </button>
           </div>
-          
-          <form onSubmit={handleEmailAuth} className="space-y-4">
-            {!isSignIn && (
-              <input type="text" placeholder="Nama Lengkap" value={name} onChange={e => setName(e.target.value)} className="w-full bg-gray-900/50 rounded-lg p-3 border border-gray-700 focus:ring-1 focus:ring-orange-500" />
-            )}
-            <input type="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} className="w-full bg-gray-900/50 rounded-lg p-3 border border-gray-700 focus:ring-1 focus:ring-orange-500" required />
-            <input type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} className="w-full bg-gray-900/50 rounded-lg p-3 border border-gray-700 focus:ring-1 focus:ring-orange-500" required />
-            
-            {error && <p className="text-red-400 text-sm">{error}</p>}
-            {message && <p className="text-green-400 text-sm">{message}</p>}
 
-            <ShinyButton type="submit" className="w-full">
-                <div className="flex items-center justify-center gap-2">
-                    {isSignIn ? <LogIn className="w-5 h-5"/> : <UserPlus className="w-5 h-5"/>}
-                    <span>{isSignIn ? 'Masuk' : 'Daftar Sekarang'}</span>
-                </div>
+          <form onSubmit={handleFormSubmit} className="space-y-6">
+            {!isSignIn && (
+              <input
+                type="text"
+                placeholder="Nama Lengkap"
+                value={fullName}
+                onChange={(e) => setFullName(e.target.value)}
+                required
+                className="w-full bg-gray-900/50 rounded-lg p-4 text-lg border border-gray-700 focus:ring-2 focus:ring-orange-500"
+              />
+            )}
+            <input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              className="w-full bg-gray-900/50 rounded-lg p-4 text-lg border border-gray-700 focus:ring-2 focus:ring-orange-500"
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              className="w-full bg-gray-900/50 rounded-lg p-4 text-lg border border-gray-700 focus:ring-2 focus:ring-orange-500"
+            />
+            {!isSignIn && (
+              <input
+                type="password"
+                placeholder="Konfirmasi Password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                required
+                className="w-full bg-gray-900/50 rounded-lg p-4 text-lg border border-gray-700 focus:ring-2 focus:ring-orange-500"
+              />
+            )}
+
+            {error && <p className="text-red-400 text-center">{error}</p>}
+            {successMessage && <p className="text-green-400 text-center">{successMessage}</p>}
+
+            <ShinyButton type="submit" className="w-full" disabled={loading}>
+              <span>{loading ? 'Memproses...' : (isSignIn ? 'Masuk Sekarang' : 'Daftar Sekarang')}</span>
             </ShinyButton>
+            
+            {isSignIn && (
+               <div className="text-center">
+                  <button type="button" onClick={handlePasswordReset} className="text-sm text-orange-400 hover:underline">
+                    Lupa Password?
+                  </button>
+                </div>
+            )}
           </form>
 
-          {isSignIn && (
-              <div className="text-center mt-4">
-                  <button onClick={handlePasswordReset} className="text-sm text-gray-400 hover:text-orange-400">Lupa Password?</button>
-              </div>
-          )}
-
           <div className="flex items-center my-6">
-            <hr className="flex-grow border-gray-700" />
-            <span className="mx-4 text-gray-500 text-sm">ATAU</span>
-            <hr className="flex-grow border-gray-700" />
+            <hr className="w-full border-gray-700" />
+            <span className="px-4 text-gray-400">ATAU</span>
+            <hr className="w-full border-gray-700" />
           </div>
 
-          <button onClick={handleGoogleLogin} className="w-full flex items-center justify-center gap-3 bg-gray-700/50 hover:bg-gray-700/80 p-3 rounded-lg transition-colors font-semibold">
-            <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" className="w-6 h-6" />
+          <button
+            onClick={handleGoogleLogin}
+            className="w-full flex items-center justify-center gap-3 bg-white text-gray-800 font-bold py-3 px-4 rounded-lg hover:bg-gray-200 transition-colors"
+          >
+            <GoogleLogo weight="bold" className="w-6 h-6" />
             Lanjutkan dengan Google
           </button>
         </div>
