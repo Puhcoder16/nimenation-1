@@ -16,14 +16,13 @@ import {
 import type { User } from 'firebase/auth';
 
 // =================================================================
-// Komponen ReviewForm yang Dipisah dan Lebih Cerdas
+// Komponen ReviewForm
 // =================================================================
 const ReviewForm = ({ user, existingReview, onSubmit, isSubmitting }) => {
   const [text, setText] = useState('');
   const [rating, setRating] = useState(0);
   const [error, setError] = useState('');
   const navigate = useNavigate();
-
   const isUpdating = !!existingReview;
 
   useEffect(() => {
@@ -88,19 +87,18 @@ const ReviewForm = ({ user, existingReview, onSubmit, isSubmitting }) => {
 // =================================================================
 const ReviewsPage = () => {
   const theme = useTheme();
-  const [user] = useAuthState(auth);
+  const [user, authLoading] = useAuthState(auth);
   
   const [reviews, setReviews] = useState<Review[]>([]);
   const [userReview, setUserReview] = useState<Review | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [dataLoading, setDataLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [pageError, setPageError] = useState('');
 
   useEffect(() => {
-    setLoading(true);
     const unsubscribe = subscribeToReviews((reviewsData) => {
         setReviews(reviewsData.sort((a, b) => (b.createdAt?.seconds ?? 0) - (a.createdAt?.seconds ?? 0)));
-        setLoading(false);
+        setDataLoading(false);
     });
     return () => unsubscribe();
   }, []);
@@ -111,22 +109,25 @@ const ReviewsPage = () => {
   }, []);
 
   useEffect(() => {
-    if (user) {
+    if (!authLoading && user) {
       fetchUserReview(user);
-    } else {
+    } else if (!authLoading && !user) {
       setUserReview(null);
     }
-  }, [user, fetchUserReview]);
+  }, [user, authLoading, fetchUserReview]);
 
 
   const { averageRating, totalReviews, ratingDistribution } = useMemo(() => {
     if (reviews.length === 0) {
       return { averageRating: 0, totalReviews: 0, ratingDistribution: { 5: 0, 4: 0, 3: 0, 2: 0, 1: 0 } };
     }
-    const total = reviews.reduce((acc, review) => acc + review.rating, 0);
+    const total = reviews.reduce((acc, review) => acc + (review.rating || 0), 0);
     const distribution = { 5: 0, 4: 0, 3: 0, 2: 0, 1: 0 };
     reviews.forEach(review => {
-      if(review.rating) distribution[review.rating] = (distribution[review.rating] || 0) + 1;
+      // Perbaikan: Pastikan rating ada sebelum menambahkannya ke distribusi
+      if (review.rating && distribution[review.rating] !== undefined) {
+        distribution[review.rating]++;
+      }
     });
     return {
       averageRating: parseFloat((total / reviews.length).toFixed(1)),
@@ -140,7 +141,7 @@ const ReviewsPage = () => {
     setIsSubmitting(true);
     try {
       await setReview(user, text, rating, isUpdating);
-      await fetchUserReview(user); // Ambil ulang data review user setelah submit
+      await fetchUserReview(user);
       setIsSubmitting(false);
       return true;
     } catch (err) {
@@ -151,9 +152,10 @@ const ReviewsPage = () => {
   };
   
   const handleDeleteReview = async (userId: string) => {
+    if(!window.confirm("Apakah Anda yakin ingin menghapus ulasan ini?")) return;
     try {
       await deleteReview(userId);
-      setUserReview(null); // Reset form setelah hapus
+      setUserReview(null);
     } catch (err) {
       setPageError('Gagal menghapus review.');
     }
@@ -203,7 +205,7 @@ const ReviewsPage = () => {
         <div>
           <h2 className="text-3xl font-bold text-white mb-6">Semua Ulasan ({totalReviews})</h2>
           {pageError && <p className="text-red-400 text-center mb-4">{pageError}</p>}
-          {loading ? <p className="text-center text-gray-400 py-10">Memuat ulasan...</p> : reviews.length > 0 ? (
+          {dataLoading ? <p className="text-center text-gray-400 py-10">Memuat ulasan...</p> : reviews.length > 0 ? (
             <div className="space-y-6">
               {reviews.map((review) => (
                 <div key={review.id} className={`bg-gray-800/20 p-6 rounded-xl border ${theme.sections.borders.subtle}`}>
