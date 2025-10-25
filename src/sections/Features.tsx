@@ -46,9 +46,9 @@ const Features = () => {
           <div className="flex justify-center items-center gap-4 mb-6">
             <FeaturesIcon className="w-10 h-10 text-orange-400" />
             <h2 className="text-4xl md:text-5xl font-bold text-white">
-              Fitur{' '}
+              Tính Năng{' '}
               <span className={`text-transparent bg-clip-text bg-gradient-to-r ${theme.hero.gradientText}`}>
-                Unggulan
+                Nổi Bật
               </span>
             </h2>
           </div>
