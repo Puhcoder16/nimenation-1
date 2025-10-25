@@ -101,7 +101,7 @@ const Hero = ({ reviews, loading }: { reviews: Review[], loading: boolean }) => 
           transition={{ duration: 0.8, delay: 0.8 }}
           className="mt-8"
         >
-          <Link to="/reviews" className="inline-flex items-center gap-2 text-gray-300 hover:text-white transition-colors group">
+          <a href="/reviews" className="inline-flex items-center gap-2 text-gray-300 hover:text-white transition-colors group">
             <div className="flex items-center">
               {[...Array(5)].map((_, i) => (
                 <Star key={i} className={`w-5 h-5 ${i < Math.round(averageRating) ? 'text-yellow-400' : 'text-gray-600'}`} />
@@ -109,7 +109,7 @@ const Hero = ({ reviews, loading }: { reviews: Review[], loading: boolean }) => 
             </div>
             <span className="font-semibold">{loading ? 'Đang tải...' : `${averageRating} / 5 sao · ${totalReviews} đánh giá`}</span>
             <span className="opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300">→</span>
-          </Link>
+          </a>
         </motion.div>
       </div>
     </section>
