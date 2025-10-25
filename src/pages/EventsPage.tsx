@@ -1,8 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useTheme } from '../components/ThemeContext';
 import ShinyButton from '../components/ShinyButton';
-import { PartyPopper, GhostIcon, BatIcon } from '../components/icons/lucide-react'; // sửa đường dẫn nếu icon bạn khác
+import GhostIcon from '../components/icons/halloween/GhostIcon';
+import BatIcon from '../components/icons/halloween/BatIcon';
+import { PartyPopper } from 'lucide-react';
 
 const eventData = [
   {
