@@ -23,7 +23,7 @@ const About = () => {
             <h2 className="text-4xl md:text-5xl font-bold text-white">
               Tentang{' '}
               <span className={`text-transparent bg-clip-text bg-gradient-to-r ${theme.hero.gradientText}`}>
-                Nimenation
+                Shop Minecraft Premium legit
               </span>
             </h2>
           </div>
@@ -36,10 +36,10 @@ const About = () => {
             className={`max-w-4xl mx-auto text-center bg-gray-800/20 backdrop-blur-sm border rounded-2xl p-8 md:p-12 ${theme.sections.borders.subtle}`}
         >
             <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed mb-8">
-            Nimenation adalah server Discord yang didedikasikan untuk para pecinta anime dan manga dari seluruh dunia. Kami adalah tempat yang ramah dan terbuka di mana kamu bisa mencari teman baru, berbagi rekomendasi, dan merasakan kehangatan dari sebuah komunitas yang penuh semangat.
+            Shop Minecraft Premium legit
             </p>
             <ShinyButton to="/about">
-              <span>Lebih Lanjut</span>
+              <span>RENX Shop</span>
             </ShinyButton>
         </motion.div>
       </div>
