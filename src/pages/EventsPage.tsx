@@ -8,21 +8,8 @@ import { PartyPopper } from 'lucide-react';
 
 const eventData = [
   {
-    title: 'Kontes Kostum Spektakuler',
-    description: 'Pamerkan kreativitasmu! Gunakan kostum Halloween terbaikmu, baik itu cosplay karakter seram atau avatar digital yang unik. Pemenang dengan kostum paling menyeramkan dan kreatif akan mendapatkan hadiah spesial!',
-  },
-  {
-    title: 'Nonton Bareng Film Horor',
-    description: 'Siapkan cemilan dan selimutmu! Kita akan mengadakan sesi nonton bareng film-film horor pilihan yang siap membuat bulu kuduk berdiri. Jadwal film akan diumumkan di channel pengumuman.',
-  },
-  {
-    title: 'Sesi Cerita Malam Jumat',
-    description: 'Punya cerita seram atau pengalaman mistis yang tak terlupakan? Bagikan ceritamu di voice channel khusus dalam sesi cerita hantu. Yang paling seram ceritanya akan dapat role eksklusif!',
-  },
-  {
-    title: 'Turnamen Game Edisi Halloween',
-    description: 'Asah skill gaming-mu dalam turnamen game spesial bertema Halloween! Ikuti kompetisi di game-game populer dengan map atau mode edisi Halloween. Buktikan kamulah sang juara malam ini!',
-  },
+    title: 'Tặng Quà Cho Khách Hàng May Mắn',
+    description: 'Mỗi tuần sẽ có quay số tặng *Acc Premium* miễn phí cho 1 khách may mắn. Chỉ cần bạn đã từng mua hàng tại shop là tự động tham gia!',
 ];
 
 const FlyingBat = ({ scrollYProgress, initialTop, initialLeft, speed, size }) => {
@@ -70,7 +57,6 @@ const EventsPage = () => {
     >
       <div className="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
 
-      {/* Lapisan khusus untuk kelelawar */}
       <div className="fixed inset-0 z-10 overflow-hidden pointer-events-none">
         {bats.map((bat, i) => (
           <FlyingBat key={i} scrollYProgress={scrollYProgress} {...bat} />
@@ -100,42 +86,13 @@ const EventsPage = () => {
             <div className="flex justify-center items-center gap-4">
               <PartyPopper className="w-10 h-10 text-orange-400" />
               <h1 className="text-4xl md:text-5xl font-bold text-white">
-                Nimenation{' '}
+                Sự Kiện{' '}
                 <span className={`text-transparent bg-clip-text bg-gradient-to-r ${theme.hero.gradientText}`}>
-                  Halloween Party!
+                  Người tiêu dùng Shop Minecraft
                 </span>
               </h1>
             </div>
             <p className="mt-4 text-xl text-gray-300 max-w-2xl mx-auto">
-              Bersiaplah untuk malam penuh misteri dan keseruan! Ikuti rangkaian event spesial Halloween kami dan menangkan hadiah menarik.
+              Sale – Quà – Sự Kiện Giải Trí! Đây là thời điểm tuyệt vời nhất để sở hữu tài khoản Minecraft giá rẻ và tham gia những hoạt động có thưởng hấp dẫn.
             </p>
           </div>
-
-          <div className="space-y-8">
-            {eventData.map((event, index) => (
-              <motion.div
-                key={index}
-                className={`bg-gray-900/40 backdrop-blur-md border rounded-2xl p-8 ${theme.sections.borders.subtle} shadow-lg shadow-orange-500/5`}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-              >
-                <h2 className="text-3xl font-bold text-white mb-3">{event.title}</h2>
-                <p className="text-gray-300 text-lg leading-relaxed">{event.description}</p>
-              </motion.div>
-            ))}
-          </div>
-
-          <div className="text-center mt-12">
-            <ShinyButton to="/">
-              <span>Kembali ke Beranda</span>
-            </ShinyButton>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-export default EventsPage;
