@@ -36,7 +36,7 @@ const About = () => {
             className={`max-w-4xl mx-auto text-center bg-gray-800/20 backdrop-blur-sm border rounded-2xl p-8 md:p-12 ${theme.sections.borders.subtle}`}
         >
             <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed mb-8">
-            RENX STORE
+            Shop Acc Premium được tạo bởi RENX
             </p>
             <ShinyButton to="/about">
               <span>Giới Thiệu</span>
