@@ -87,7 +87,7 @@ const Navbar = () => {
             ) : (
               <Link to="/" onClick={handleLinkClick} className="flex items-center gap-3">
                 <img src="/avatar.webp" alt="Nimenation Logo" className="h-10 w-10 rounded-full object-cover" />
-                <span className="font-bold text-white text-lg">Nimenation</span>
+                <span className="font-bold text-white text-lg">RENX STORE</span>
               </Link>
             )}
             <button onClick={() => setIsMenuOpen(false)} className="text-white p-2">
@@ -100,11 +100,11 @@ const Navbar = () => {
             <div className="p-6 space-y-4">
               {user ? (
                 <button onClick={handleLogout} className="w-full flex items-center justify-center gap-2 text-gray-300 hover:text-white bg-gray-700/50 hover:bg-gray-700/80 p-3 rounded-lg transition-colors">
-                  <LogOut className="w-5 h-5" /><span>Sign Out</span>
+                  <LogOut className="w-5 h-5" /><span>...</span>
                 </button>
               ) : (
                 <ShinyButton onClick={handleLoginRedirect} className="w-full">
-                  <LogIn className="w-5 h-5" /><span>Sign In / Sign Up</span>
+                  <LogIn className="w-5 h-5" /><span>...</span>
                 </ShinyButton>
               )}
               <ShinyButton to="/recruitment" onClick={handleLinkClick} className="w-full">
