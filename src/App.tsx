@@ -7,10 +7,7 @@ import { ThemeProvider, useTheme } from './components/ThemeContext';
 import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
 import FeaturesPage from './pages/FeaturesPage';
-import RulesPage from './pages/RulesPage';
 import EventsPage from './pages/EventsPage';
-import LoginPage from './pages/LoginPage';
-import ReviewsPage from './pages/ReviewsPage';
 
 const Layout = ({ children }) => {
   const theme = useTheme();
