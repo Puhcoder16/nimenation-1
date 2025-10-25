@@ -7,9 +7,15 @@ import BatIcon from '../components/icons/halloween/BatIcon';
 import { PartyPopper } from 'lucide-react';
 
 const eventData = [
+ const events = [
+  {
+    title: 'Giảm Giá Cuối Tuần',
+    description: 'Tất cả Acc Premium giảm giá 20% mỗi thứ 7 và Chủ Nhật!',
+  },
   {
     title: 'Tặng Quà Cho Khách Hàng May Mắn',
-    description: 'Mỗi tuần sẽ có quay số tặng *Acc Premium* miễn phí cho 1 khách may mắn. Chỉ cần bạn đã từng mua hàng tại shop là tự động tham gia!',
+    description: 'Mỗi tuần shop sẽ quay số tặng Acc Premium miễn phí cho 1 khách may mắn!',
+  },
 ];
 
 const FlyingBat = ({ scrollYProgress, initialTop, initialLeft, speed, size }) => {
