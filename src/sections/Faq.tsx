@@ -4,14 +4,12 @@ import { ChevronDown } from 'lucide-react';
 import { useTheme } from '../components/ThemeContext';
 
 const faqData = [
-  { question: 'Event Nime tiap hari apa saja sih, min?', answer: 'Tiap hari Jumat/Sabtu/Minggu, jangan lupa mampir ya!' },
-  { question: 'Kak, kalau mau ngasih saran event ke siapa ya?', answer: 'Bisa langsung ke feedback channel. Kalau nggak, bisa hubungi salah satu Grand Duke ya!' },
-  { question: 'Kalau mau nyari temen mabar di channel mana sih, kak?', answer: 'Kamu bisa nyari temen mabar di channel All Game Chat. Kalau nggak, juga bisa mampir ke post yang sudah disediakan tuh!' },
-  { question: 'Apa sih maksud NCP?', answer: 'NCP itu Need Couple, biasa dipake buat temen-temen nyari couple profile atau nggak nyari pasangan hidup hehe.' },
-  { question: 'Gimana sih cara join Nimenation Staff?', answer: 'Tunggu aja ya, setiap 3 bulan sekali pasti ada open recruitment tuh. Langsung aja daftar jika kamu berminat.' },
-  { question: 'Cara buat level up gimana sih, kak?', answer: 'Kamu bisa sering-sering join voice dan juga chatting di lobby dan channel chat manapun ya. Otomatis level dan juga EXP kamu akan naik kok. Sering-sering nimbrung aja, guys!' },
-  { question: 'Kok chatku sering otomatis kehapus ya? Kok aku tiba-tiba kena timeout ya?', answer: 'Itu berarti kamu melanggar peraturan yang sudah kami tetapkan, dan mungkin menggunakan kata-kata yang kami banned.' },
-  { question: 'Kak, kalau misal ada member yang nyebelin aku, lapor ke siapa ya?', answer: 'Ke admin mana pun dan pasti akan langsung kami tindak lanjuti.' },
+{ question: 'Shop có event giảm giá vào ngày nào vậy ad?', answer: 'Shop giảm giá mạnh vào Thứ 6 - Thứ 7 - Chủ Nhật nha! Nhớ vào check kẻo lỡ deal ngon! 🔥' },
+{ question: 'Nếu em muốn đề xuất tính năng/mong muốn hỗ trợ thêm thì gửi ở đâu ạ?', answer: 'Em có thể gửi trực tiếp tại kênh góp ý hoặc inbox ad. Shop luôn lắng nghe khách hàng 💛' },
+{ question: 'Muốn tìm người mabar Minecraft thì vô đâu vậy shop?', answer: 'Vô kênh trò chuyện hoặc Discord cộng đồng của shop nha, đảm bảo có người ghép team liền 😎' },
+{ question: 'Acc Premium ở shop có bảo hành không ạ?', answer: 'Có nha! Tất cả acc đều bảo hành lâu dài. Nếu lỗi cứ liên hệ shop hỗ trợ liền 💯' },
+{ question: 'Tại sao tin nhắn em bị xoá hoặc bị mute vậy ad?', answer: 'Có thể em vô tình dùng từ nằm trong danh sách hạn chế hệ thống. Không sao đâu, chỉ cần chú ý là ok 😄' },
+{ question: 'Nếu có người toxic/chửi nhau phải làm sao?', answer: 'Báo admin hoặc mod shop. Bên mình xử lý nhanh, bảo vệ cộng đồng là ưu tiên hàng đầu 👍' },
 ];
 
 const AccordionItem = ({ item, isOpen, onClick }) => {
