@@ -50,9 +50,9 @@ const Faq = () => {
           </motion.div>
           <motion.div initial={{ opacity: 0, x: 50 }} animate={isInView ? { opacity: 1, x: 0 } : {}} transition={{ duration: 0.8, delay: 0.2 }} className="w-full md:w-7/12">
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-8 text-center md:text-left">
-              Câu Hỏi Thường Gặp{' '}
+              Câu Hỏi{' '}
               <span className={`text-transparent bg-clip-text bg-gradient-to-r ${theme.hero.gradientText}`}>
-                Question
+                Thường Gặp
               </span>
             </h2>
             <div className={`bg-gray-800/50 backdrop-blur-sm border rounded-2xl ${theme.sections.borders.subtle}`}>
