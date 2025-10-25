@@ -14,7 +14,7 @@ const eventData = [
   },
   {
     title: 'Tặng Quà Cho Khách Hàng May Mắn',
-    description: 'Mỗi tuần shop sẽ quay số tặng Acc Premium miễn phí cho 1 khách may mắn!',
+    description: 'Mỗi tháng shop sẽ quay số tặng Acc Premium miễn phí cho 1 khách may mắn!',
   },
 ];
 
