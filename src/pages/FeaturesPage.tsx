@@ -4,38 +4,33 @@ import FeaturesIcon from '../components/icons/FeaturesIcon';
 
 const featureData = [
   {
-    category: 'Informasi & Pengumuman',
+    category: 'Thông Tin & Hỗ Trợ',
     items: [
-      { name: 'Aturan & Verifikasi', description: 'Temukan semua aturan server dan lakukan verifikasi mandiri di channel ini.' },
-      { name: 'Pengumuman Resmi', description: 'Jangan sampai ketinggalan berita terbaru, event, dan semua pengumuman penting dari kami.' },
-      { name: 'Info Role', description: 'Pelajari fungsi setiap role yang ada di server dan cara untuk mendapatkannya.' },
-      { name: 'Dukungan Server', description: 'Informasi bagi kamu yang ingin memberikan dukungan untuk perkembangan server.' },
+      { name: 'Hướng Dẫn Mua Hàng', description: 'Giải thích chi tiết cách mua tài khoản Minecraft tại shop: chọn loại acc, thanh toán, và nhận hàng tự động.' },
+      { name: 'Chính Sách Bảo Hành', description: 'Shop cam kết bảo hành theo từng loại acc. Mất acc do lỗi shop → Đổi mới 100%.' },
+      { name: 'Cách Đổi Skin / Nickname', description: 'Hướng dẫn tùy chỉnh skin và đổi IGN cho tài khoản Premium / Full Access.' },
+      { name: 'Nạp Tiền Shop', description: 'Hỗ trợ nạp qua MoMo, MB Bank, Vietcombank, thẻ cào & Ví Quốc Tế.' },
     ],
   },
   {
-    category: 'Aktivitas Komunitas',
+    category: 'Sản Phẩm Tài Khoản',
     items: [
-      { name: 'Lobby Utama', description: 'Tempat utama untuk mengobrol santai setiap hari dengan semua Nimetizen.' },
-      { name: 'Cari Pasangan', description: 'Channel khusus bagi yang ingin mencari pasangan atau teman couple dengan kriteria masing-masing.' },
-      { name: 'Diskusi Anime & Manga', description: 'Wadah untuk membahas, berteori, dan berbagi rekomendasi seputar anime, manga, dan novel.' },
-      { name: 'Giveaway', description: 'Ikuti berbagai event giveaway dengan hadiah menarik yang kami adakan secara berkala.' },
+      { name: 'Minecraft Java + Bedrock Edition', description: 'Một tài khoản – chơi được cả PC lẫn Mobile (PE/Xbox/PS4/Switch).' },
     ],
   },
   {
-    category: 'Ekspresi & Kreativitas',
+    category: 'Dịch Vụ & Tiện Ích',
     items: [
-      { name: 'Galeri Foto', description: 'Bagikan momen atau gambar random yang menarik untuk dilihat bersama.' },
-      { name: 'Pojok Seni', description: 'Pamerkan karya senimu, baik itu gambar, desain, atau karakter orisinal buatanmu.' },
-      { name: 'Info Event Jejepangan', description: 'Dapatkan dan bagikan info seputar event Jejepangan dan dunia cosplay.' },
-      { name: 'Zona Musik & Film', description: 'Berbagi playlist favorit atau diskusikan film dan series terbaru.' },
-      { name: 'Promosi Karya', description: 'Tempat untuk mempromosikan produk atau karyamu kepada sesama member (dilarang promosi server lain).' },
+      { name: 'Thiết Kế Logo / Banner Server', description: 'Tăng độ chuyên nghiệp cho server của bạn với thiết kế đẹp, phong cách.' },
+      { name: 'Quảng Bá Server', description: 'Hỗ trợ PR server Minecraft của bạn để thu hút người chơi mới (không spam).' },
+      { name: 'Nhiều dịch vụ khác', description: 'Discord, thiết kế thumbnail, avatar,v.v' },
     ],
   },
   {
-    category: 'Game Corner',
+    category: 'Cộng Đồng Khách Hàng',
     items: [
-      { name: 'Diskusi Game', description: 'Tempat untuk membahas semua jenis game, baik mobile maupun PC.' },
-      { name: 'Cari Teman Mabar', description: 'Gunakan forum interaktif kami untuk mencari teman main bareng sesuai game favoritmu.' },
+      { name: 'Group Chat Khách Mua', description: 'Cộng đồng thân thiện, chia sẻ tip chơi game, skin đẹp, seed map hay.' },
+      { name: 'Mời Chơi Chung', description: 'Tìm bạn cùng chơi Minecraft, lập team, mở server chung cực vui.' },
     ],
   },
 ];
@@ -67,9 +62,9 @@ const FeaturesPage = () => {
           <div className="flex justify-center items-center gap-4">
             <FeaturesIcon className="hidden sm:block w-10 h-10 text-orange-400" />
             <h1 className="text-4xl md:text-5xl font-bold text-white">
-              Fitur Lengkap{' '}
+              Tính Năng Dịch Vụ{' '}
               <span className={`text-transparent bg-clip-text bg-gradient-to-r ${theme.hero.gradientText}`}>
-                Nimenation
+                Shop Minecraft
               </span>
             </h1>
           </div>
@@ -83,7 +78,7 @@ const FeaturesPage = () => {
 
         <div className="text-center mt-12">
           <ShinyButton to="/">
-            <span>Kembali ke Beranda</span>
+            <span>Quay lại Trang Chủ</span>
           </ShinyButton>
         </div>
       </div>
