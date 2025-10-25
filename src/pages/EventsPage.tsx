@@ -10,7 +10,7 @@ const eventData = [
  const events = [
   {
     title: 'Giảm Giá Cuối Tuần',
-    description: 'Tất cả Acc Premium giảm giá 20% mỗi thứ 7 và Chủ Nhật!',
+    description: 'Tất cả Acc Premium giảm giá gần 10% mỗi thứ 7 và Chủ Nhật!',
   },
   {
     title: 'Tặng Quà Cho Khách Hàng May Mắn',
