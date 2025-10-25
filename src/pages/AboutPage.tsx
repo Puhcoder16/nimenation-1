@@ -12,9 +12,9 @@ const AboutPage = () => {
           <div className="flex justify-center items-center gap-4">
             <AboutIcon className="w-10 h-10 text-orange-400" />
             <h1 className="text-4xl md:text-5xl font-bold text-white">
-              Tentang{' '}
+              Giới Thiệu{' '}
               <span className={`text-transparent bg-clip-text bg-gradient-to-r ${theme.hero.gradientText}`}>
-                Nimenation
+                Shop Minecraft
               </span>
             </h1>
           </div>
@@ -22,32 +22,32 @@ const AboutPage = () => {
 
         <div className={`bg-gray-800/20 backdrop-blur-sm border rounded-2xl p-8 md:p-12 space-y-6 text-gray-300 text-lg leading-relaxed ${theme.sections.borders.subtle}`}>
           <p>
-            <strong>Nimenation</strong> adalah server Discord yang didedikasikan untuk para pecinta anime dan manga, tak hanya dari Indonesia tapi juga dari berbagai belahan dunia. Di Nimenation, kami memegang teguh konsep inklusivitas. Di sini adalah tempat yang ramah dan terbuka di mana kalian bisa mencari teman baru, kenalan, atau bahkan seperti keluarga.
+            <strong>Shop Minecraft</strong> là nơi chuyên cung cấp tài khoản Minecraft bản quyền, key game, tăng cấp, hỗ trợ – uy tín lâu năm, khách hàng trải dài khắp nơi.
           </p>
           <p>
-            Dengan suasana yang hangat, kami menyambut setiap individu yang tertarik untuk berdiskusi, berbagi rekomendasi, dan membentuk hubungan dengan sesama penggemar.
+            Chúng tôi luôn cam kết mang đến trải nghiệm mua hàng **nhanh chóng – an toàn – hỗ trợ nhiệt tình 24/7**, đảm bảo người chơi có thể vào game ngay sau khi thanh toán.
           </p>
 
-          <h2 className="text-2xl font-bold text-white pt-4 !mt-10">Visi & Misi</h2>
+          <h2 className="text-2xl font-bold text-white pt-4 !mt-10">Tầm Nhìn & Sứ Mệnh</h2>
           <p>
-            Menjadi sebuah komunitas pencinta anime yang aktif, aman, dan nyaman, serta sebagai wadah terpercaya bagi para Nimetizen untuk mengeksplorasi dan mengembangkan minat serta hobinya dalam dunia anime.
+            Trở thành một trong những shop tài khoản game uy tín nhất Việt Nam, giúp game thủ tiếp cận Minecraft bản quyền với giá hợp lý, bảo mật cao, và hỗ trợ trọn đời.
           </p>
           <ul className="list-disc list-inside space-y-2 pl-4">
-            <li>Memperluas Nimenation ke platform media sosial lainnya.</li>
-            <li>Mengadakan acara dan kegiatan secara berkala.</li>
-            <li>Membuat aturan jelas untuk memastikan setiap anggota aman.</li>
-            <li>Memberdayakan diskusi sehat mengenai anime dan pop-culture.</li>
+            <li>Cung cấp tài khoản Minecraft đa dạng & giá tốt.</li>
+            <li>Hỗ trợ kỹ thuật nhanh – tận tâm – rõ ràng.</li>
+            <li>Bảo hành đổi mới nếu lỗi đăng nhập.</li>
+            <li>Tạo môi trường cộng đồng giao lưu – chơi cùng nhau.</li>
           </ul>
 
-          <h2 className="text-2xl font-bold text-white pt-4 !mt-10">Sejarah Singkat</h2>
+          <h2 className="text-2xl font-bold text-white pt-4 !mt-10">Câu Chuyện Hình Thành</h2>
           <p>
-            Awalnya dikenal sebagai Anime/Wibu Couple Nation pada 16 Februari 2022 di Openchat LINE, komunitas kami berkembang pesat hingga mencapai lebih dari 1.000 member. Ketika fitur Openchat dihapus, Nimenation beralih ke Discord sebagai basis utama pada 08 April 2022 dan dibuka untuk publik sejak 1 Januari 2023.
+            Shop được thành lập từ năm 2024 với mục tiêu mang đến tài khoản Minecraft rẻ – chất lượng – minh bạch. Đến nay, shop đã phục vụ hơn <strong>1000+ khách hàng</strong> và nhận được hàng trăm feedback tích cực mỗi ngày.
           </p>
         </div>
 
         <div className="text-center mt-12">
           <ShinyButton to="/">
-            <span>Kembali ke Beranda</span>
+            <span>Quay lại Trang Chủ</span>
           </ShinyButton>
         </div>
       </div>
