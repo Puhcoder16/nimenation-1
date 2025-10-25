@@ -87,11 +87,11 @@ const Hero = ({ reviews, loading }: { reviews: Review[], loading: boolean }) => 
           transition={{ duration: 0.8, delay: 0.6 }}
           className="flex flex-col sm:flex-row items-center justify-center gap-4"
         >
-          <ShinyButton href="https://zalo.me">
+          <ShinyButton href="https://discord.gg/RDsv8KHunh">
             <span>Mua Ngay</span>
           </ShinyButton>
           <ShinyButton to="/login" variant="secondary">
-            <span>Đăng nhập / Viết đánh giá</span>
+            <span>Hướng dẫn sử dụng</span>
           </ShinyButton>
         </motion.div>
 
