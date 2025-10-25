@@ -82,7 +82,7 @@ const Features = () => {
             className="text-center"
         >
             <ShinyButton to="/features">
-              <span>Lihat Semua Fitur</span>
+              <span>Dịch Vụ RenX Store</span>
             </ShinyButton>
         </motion.div>
 
