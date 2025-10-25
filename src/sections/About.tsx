@@ -21,7 +21,7 @@ const About = () => {
           <div className="flex justify-center items-center gap-4">
             <AboutIcon className="hidden sm:block w-10 h-10 text-orange-400" />
             <h2 className="text-4xl md:text-5xl font-bold text-white">
-              Thông Tin Về{' '}
+              Giới Thiệu{' '}
               <span className={`text-transparent bg-clip-text bg-gradient-to-r ${theme.hero.gradientText}`}>
                 RENX STORE
               </span>
@@ -36,7 +36,7 @@ const About = () => {
             className={`max-w-4xl mx-auto text-center bg-gray-800/20 backdrop-blur-sm border rounded-2xl p-8 md:p-12 ${theme.sections.borders.subtle}`}
         >
             <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed mb-8">
-            Shop Acc Premium được tạo bởi RENX
+            Thông Tin Về Chúng Tôi
             </p>
             <ShinyButton to="/about">
               <span>Giới Thiệu</span>
