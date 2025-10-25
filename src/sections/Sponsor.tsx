@@ -13,6 +13,8 @@ const Sponsor = () => {
     <section id="sponsor" ref={ref} className="py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row items-center gap-10 lg:gap-16">
+          
+          {/* TEXT */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
@@ -20,60 +22,60 @@ const Sponsor = () => {
             className="w-full md:w-7/12"
           >
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-8 text-center md:text-left">
-              Dukung{' '}
+              Hỗ Trợ{' '}
               <span className={`text-transparent bg-clip-text bg-gradient-to-r ${theme.hero.gradientText}`}>
-                Nimenation
+                Shop Minecraft
               </span>
             </h2>
 
             <div className={`bg-gray-800/50 backdrop-blur-sm border rounded-2xl p-8 ${theme.sections.borders.subtle}`}>
               <div className="space-y-8">
+
+                {/* DONATE */}
                 <div>
                   <h3 className="flex items-center text-2xl font-semibold text-white mb-3">
                     <Heart className={`w-6 h-6 mr-3 ${theme.sections.colors.primary}`} />
-                    Donasi
+                    Ủng Hộ Shop
                   </h3>
                   <p className="text-gray-300">
-                    Dukung kami untuk terus berkembang dan mengadakan event seru. Donasi bisa melalui Trakteer, Saweria, atau transfer langsung. Para donatur akan mendapatkan role spesial sebagai bentuk terima kasih kami.
+                    Bạn có thể ủng hộ để giúp shop duy trì hoạt động, cập nhật acc mới mỗi ngày và tổ chức giveaway free acc Minecraft. 
+                    Người ủng hộ sẽ nhận **role đặc biệt** + **ưu tiên hỗ trợ**.
                   </p>
-                  <div className="flex flex-wrap gap-3 mt-4">
-                    <ShinyButton href="https://trakteer.id/nimenation">
-                      <span>Trakteer</span>
-                    </ShinyButton>
-                    <ShinyButton href="https://saweria.co/nimenation">
-                      <span>Saweria</span>
-                    </ShinyButton>
-                  </div>
-                </div>
-                
+
+                {/* SPONSORSHIP */}
                 <div>
                   <h3 className="flex items-center text-2xl font-semibold text-white mb-3">
                     <Handshake className={`w-6 h-6 mr-3 ${theme.sections.colors.primary}`} />
-                    Sponsorship
+                    Tài Trợ / Quảng Bá
                   </h3>
                   <p className="text-gray-300">
-                    Buka kesempatan untuk bisnis atau usahamu berkolaborasi dengan kami. Dapatkan benefit promosi, role khusus, dan *special thanks* di setiap event.
+                    Shop mở cơ hội hợp tác cho các bạn bán dịch vụ game hoặc creator. 
+                    Nhận **slot banner**, giới thiệu kênh, và quảng bá ngay trên web / server shop.
                   </p>
-                   <div className="flex flex-wrap gap-3 mt-4">
-                    <ShinyButton href="https://drive.google.com/file/d/1S3S2vxfO9q-fSL-sMPW0jPB_iJ3mPHYd/view?usp=sharing">
-                      <span>Lihat Detail</span>
+                  <div className="flex flex-wrap gap-3 mt-4">
+                    <ShinyButton href="https://drive.google.com">
+                      <span>Xem Gói Tài Trợ</span>
                     </ShinyButton>
                   </div>
                 </div>
 
+                {/* PARTNERSHIP */}
                 <div>
                   <h3 className="flex items-center text-2xl font-semibold text-white mb-3">
                     <LinkIcon className={`w-6 h-6 mr-3 ${theme.sections.colors.primary}`} />
-                    Partnership
+                    Đối Tác / Liên Kết
                   </h3>
                   <p className="text-gray-300">
-                    Kami terbuka untuk partnership dengan server lain yang aktif, memiliki minimal 500 member, dan mematuhi TOS Discord. Hubungi kami untuk info lebih lanjut.
+                    Shop sẵn sàng hợp tác với YouTuber, Streamer, Server Minecraft hoặc cộng đồng ≥ 3000 thành viên. 
+                    Cùng phát triển, cùng có lợi.
                   </p>
                 </div>
+
               </div>
             </div>
           </motion.div>
 
+          {/* IMAGE */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
@@ -82,7 +84,7 @@ const Sponsor = () => {
           >
             <img
               src="/sponsor.webp"
-              alt="Sponsorship Illustration"
+              alt="Sponsor Illustration"
               className="w-full h-auto object-contain [filter:drop-shadow(0_10px_15px_rgba(234,88,12,0.2))]"
             />
           </motion.div>
