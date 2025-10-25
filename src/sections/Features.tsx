@@ -11,28 +11,27 @@ const Features = () => {
   const theme = useTheme();
 
   const featureList = [
-    {
-      icon: MessageSquare,
-      title: 'Lobby & Ruang Diskusi',
-      description: 'Ngobrol santai setiap hari, bahas anime, atau cari teman couple di channel khusus.',
-    },
-    {
-      icon: Gamepad2,
-      title: 'Game Corner',
-      description: 'Cari teman mabar untuk semua jenis game, dari PC hingga mobile, di forum interaktif kami.',
-    },
-    {
-      icon: PartyPopper,
-      title: 'Aktivitas & Event Spesial',
-      description: 'Bagikan meme, karya seni, playlist musik, atau ikuti info event jejepangan dan cosplay.',
-    },
-    {
-      icon: Music,
-      title: 'Custom Channel & Bot',
-      description: 'Buat voice room pribadimu sendiri dan nikmati musik dengan command bot yang tersedia.',
-    },
-  ];
-
+  {
+    icon: MessageSquare,
+    title: 'Cộng Đồng UY TÍN & THÂN THIỆN',
+    description: 'Tham gia server cộng đồng của shop để giao lưu, hỏi đáp và nhận hỗ trợ cài đặt Minecraft, mod, shader hoàn toàn miễn phí.',
+  },
+  {
+    icon: Gamepad2,
+    title: 'MABAR & SHARE SERVER',
+    description: 'Tìm đồng đội chơi chung các server nổi tiếng. Shop có sẵn danh sách server đề xuất cho người mới, kèm hướng dẫn tối ưu FPS.',
+  },
+  {
+    icon: PartyPopper,
+    title: 'Sự Kiện GIVEAWAY ACC PREMIUM',
+    description: 'Shop thường xuyên tặng acc Minecraft Premium, cape đẹp và rank server. Chỉ cần tham gia cộng đồng là có cơ hội nhận quà miễn phí.',
+  },
+  {
+    icon: Music,
+    title: 'HỖ TRỢ BẢO HÀNH TRỌN ĐỜI',
+    description: 'Mua acc tại shop được bảo hành lâu dài, mất acc hỗ trợ khôi phục. Hỗ trợ kỹ thuật qua chat trực tiếp, trả lời nhanh – tận tâm.',
+  },
+];
   return (
     <section id="features" ref={ref} className="py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
