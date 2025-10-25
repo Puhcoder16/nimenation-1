@@ -9,15 +9,17 @@ const Mascot = () => {
 
   const mascots = [
     {
-      name: 'Nime-chan',
+      name: 'Ren-chan',
       imageSrc: '/nimechan.webp',
-      description: 'Maskot Nimenation yang pertama kali direncanakan, dikarenakan menjadikan seorang cewe 2D sebagai icon dari sebuah komunitas anime adalah hal yang wajib. Nime-chan adalah adik perempuan dari Nime-kun, yang tidak seperti kakaknya, Nime-chan memiliki sifat yang hiperaktif, penyayang, dan suka berinteraksi dengan banyak orang, dia sering menjadi incaran banyak lelaki. Nime-chan sendiri terinsipirasi dari mayoritas member Nimenation bergender cewek.',
+      description:
+        'Ren-chan là linh vật dễ thương của shop chúng tôi. Đại diện cho những khách hàng thích sự tươi vui, dễ thương và thân thiện. Mine-chan luôn giúp người chơi mới chọn được tài khoản Minecraft phù hợp, giá rẻ mà vẫn chất lượng. Cô ấy là biểu tượng cho phong cách hỗ trợ nhiệt tình và chăm sóc khách hàng tận tâm của shop.',
       imagePosition: 'left',
     },
     {
-      name: 'Nime-kun',
+      name: 'Ren-béo-kun',
       imageSrc: '/nimekun.webp',
-      description: 'Salah satu dari maskot Nimenation community, dia adalah kakak dari Nime-chan. Memiliki sifat yang dingin dan tidak terlalu suka bersosialisasi, dan tidak selalu beruntung dalam mencari jodoh, namun dia mendapatkan banyak teman dari bermain game online seperti FPS games dan Moba. Nime-kun sendiri terinsipirasi dari mayoritas member Nimenation yang bergender lelaki.',
+      description:
+        'Ren-béo-kun là linh vật tượng trưng cho những khách hàng thích tryhard, đam mê PvP, Skyblock, Bedwars và các server lớn. Cậu ấy luôn tìm kiếm tài khoản mạnh, skin xịn và tối ưu hiệu năng chơi game. Craft-kun đại diện cho chất lượng acc cao cấp, bảo hành uy tín và sự cam kết từ shop.',
       imagePosition: 'right',
     },
   ];
@@ -32,9 +34,9 @@ const Mascot = () => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-            Maskot{' '}
+            Nhân Vật Đại Diện{' '}
             <span className={`text-transparent bg-clip-text bg-gradient-to-r ${theme.hero.gradientText}`}>
-              Komunitas
+              Của Shop
             </span>
           </h2>
         </motion.div>
