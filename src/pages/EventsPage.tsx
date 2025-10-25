@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useTheme } from '../components/ThemeContext';
 import ShinyButton from '../components/ShinyButton';
-import { PartyPopper, GhostIcon, BatIcon } from '../components/icons/ShopIcons'; // sửa đường dẫn nếu icon bạn khác
+import { PartyPopper, GhostIcon, BatIcon } from '../components/icons/lucide-react'; // sửa đường dẫn nếu icon bạn khác
 
 const eventData = [
   {
