@@ -6,10 +6,10 @@ import GhostIcon from './icons/halloween/GhostIcon';
 
 const Footer = () => {
   const socialLinks = [
-    { name: 'Discord', href: 'https://discord.gg/nimenation', icon: DiscordIcon },
-    { name: 'Instagram', href: 'https://instagram.com/nimenation', icon: InstagramIcon },
-    { name: 'TikTok', href: 'https://tiktok.com/@nimenation', icon: TiktokIcon },
-    { name: 'YouTube', href: 'https://youtube.com/@nimenation', icon: YoutubeIcon },
+    { name: 'Discord', href: 'https://discord.gg/RDsv8KHunh', icon: DiscordIcon },
+    { name: 'Instagram', href: 'https://www.instagram.com/made_in_tieukhu7', icon: InstagramIcon },
+    { name: 'TikTok', href: 'https://www.tiktok.com/@renxog146', icon: TiktokIcon },
+    { name: 'YouTube', href: 'https://www.youtube.com/@RenxOG146', icon: YoutubeIcon },
   ];
 
   return (
@@ -18,7 +18,7 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row justify-between items-center text-center md:text-left gap-6">
           <div className="flex items-center space-x-2">
             <GhostIcon className="w-7 h-7" />
-            <span className="text-xl font-bold">Nimenation</span>
+            <span className="text-xl font-bold">RENX STORE</span>
           </div>
 
           <div className="flex items-center justify-center space-x-6">
@@ -37,7 +37,7 @@ const Footer = () => {
           </div>
 
           <div className="text-sm">
-            © {new Date().getFullYear()} Nimenation. All rights reserved.
+            © {new Date().getFullYear()} renx store. All rights reserved.
           </div>
         </div>
       </div>
