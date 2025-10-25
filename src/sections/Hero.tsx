@@ -67,7 +67,7 @@ const Hero = ({ reviews, loading }: { reviews: Review[], loading: boolean }) => 
         >
           Chào mừng đến với{' '}
           <span className={`text-transparent bg-clip-text bg-gradient-to-r ${theme.hero.gradientText}`}>
-            Shop Minecraft Premium
+            RENX STORE
           </span>
           !
         </motion.h1>
@@ -87,7 +87,7 @@ const Hero = ({ reviews, loading }: { reviews: Review[], loading: boolean }) => 
           transition={{ duration: 0.8, delay: 0.6 }}
           className="flex flex-col sm:flex-row items-center justify-center gap-4"
         >
-          <ShinyButton href="https://discord.gg/RDsv8KHunh">
+          <ShinyButton href="https://discord.com/invite/renx-store-860-luot-ban-road-to-3k-members-1345213854828728422">
             <span>Mua Ngay</span>
           </ShinyButton>
           <ShinyButton to="/login" variant="secondary">
