@@ -39,8 +39,9 @@ const Sponsor = () => {
                   </h3>
                   <p className="text-gray-300">
                     Bạn có thể ủng hộ để giúp shop duy trì hoạt động, cập nhật acc mới mỗi ngày và tổ chức giveaway free acc Minecraft. 
-                    Người ủng hộ sẽ nhận **role đặc biệt** + **ưu tiên hỗ trợ**.
+                    Người ủng hộ sẽ nhận <strong>role đặc biệt</strong> + <strong>ưu tiên hỗ trợ</strong>.
                   </p>
+                </div>
 
                 {/* SPONSORSHIP */}
                 <div>
@@ -50,7 +51,7 @@ const Sponsor = () => {
                   </h3>
                   <p className="text-gray-300">
                     Shop mở cơ hội hợp tác cho các bạn bán dịch vụ game hoặc creator. 
-                    Nhận **slot banner**, giới thiệu kênh, và quảng bá ngay trên web / server shop.
+                    Nhận <strong>slot banner</strong>, giới thiệu kênh, và quảng bá ngay trên web / server shop.
                   </p>
                   <div className="flex flex-wrap gap-3 mt-4">
                     <ShinyButton href="https://drive.google.com">
@@ -96,3 +97,4 @@ const Sponsor = () => {
 };
 
 export default Sponsor;
+
