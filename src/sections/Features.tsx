@@ -11,26 +11,27 @@ const Features = () => {
   const theme = useTheme();
 
   const featureList = [
-    {
-      icon: MessageSquare,
-      title: 'Lobby & Ruang Diskusi',
-      description: 'Ngobrol santai setiap hari, bahas anime, atau cari teman couple di channel khusus.',
-    },
-    {
-      icon: Gamepad2,
-      title: 'Game Corner',
-      description: 'Cari teman mabar untuk semua jenis game, dari PC hingga mobile, di forum interaktif kami.',
-    },
-    {
-      icon: PartyPopper,
-      title: 'Aktivitas & Event Spesial',
-      description: 'Bagikan meme, karya seni, playlist musik, atau ikuti info event jejepangan dan cosplay.',
-    },
-    {
-      icon: Music,
-      title: 'Custom Channel & Bot',
-      description: 'Buat voice room pribadimu sendiri dan nikmati musik dengan command bot yang tersedia.',
-    },
+{
+  icon: MessageSquare,
+  title: 'Khu Chat Chung',
+  description: 'Nơi trò chuyện mỗi ngày, chia sẻ câu chuyện, tâm sự và giao lưu với mọi người trong cộng đồng.',
+},
+{
+  icon: Gamepad2,
+  title: 'Giá thành',
+  description: 'Giá rẻ, chât lưởng, bảo hành 1 đổi 1.',
+},
+{
+  icon: PartyPopper,
+  title: 'Sự Kiện & Hoạt Động',
+  description: 'Tham gia mini-game, giveaway, event đặc biệt và nhận nhiều quà tặng hấp dẫn.',
+},
+{
+  icon: Music,
+  title: 'Kênh Voice & Music Bot',
+  description: 'Tạo phòng voice riêng và nghe nhạc chung với bạn bè bằng bot nhạc chất lượng.',
+},
+
   ];
 
   return (
