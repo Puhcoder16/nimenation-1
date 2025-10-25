@@ -30,10 +30,7 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/features" element={<FeaturesPage />} />
-            <Route path="/rules" element={<RulesPage />} />
             <Route path="/events" element={<EventsPage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/reviews" element={<ReviewsPage />} />
           </Routes>
         </Layout>
       </Router>
