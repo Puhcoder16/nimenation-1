@@ -104,7 +104,7 @@ const Hero = ({ reviews, loading }: { reviews: Review[], loading: boolean }) => 
                 <Star key={i} className={`w-5 h-5 ${i < Math.round(averageRating) ? 'text-yellow-400' : 'text-gray-600'}`} />
               ))}
             </div>
-            <span className="font-semibold">{loading ? 'Đang tải...' : `${averageRating} / 5 sao · ${totalReviews} đánh giá`}</span>
+            <span className="font-semibold">{loading ? 'Đang tải...' : `${averageRating} / 5 sao · 1000+ đánh giá`}</span>
             <span className="opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300">→</span>
           </a>
         </motion.div>
