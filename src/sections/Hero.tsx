@@ -90,9 +90,6 @@ const Hero = ({ reviews, loading }: { reviews: Review[], loading: boolean }) => 
           <ShinyButton href="https://discord.com/invite/renx-store-860-luot-ban-road-to-3k-members-1345213854828728422">
             <span>Mua Ngay</span>
           </ShinyButton>
-          <ShinyButton to="/login" variant="secondary">
-            <span>Hướng dẫn sử dụng</span>
-          </ShinyButton>
         </motion.div>
 
         <motion.div
