@@ -98,7 +98,7 @@ const Hero = ({ reviews, loading }: { reviews: Review[], loading: boolean }) => 
           transition={{ duration: 0.8, delay: 0.8 }}
           className="mt-8"
         >
-          <a href="/reviews" className="inline-flex items-center gap-2 text-gray-300 hover:text-white transition-colors group">
+          <a href="https://discord.com/invite/renx-store-860-luot-ban-road-to-3k-members-1345213854828728422" className="inline-flex items-center gap-2 text-gray-300 hover:text-white transition-colors group">
             <div className="flex items-center">
               {[...Array(5)].map((_, i) => (
                 <Star key={i} className={`w-5 h-5 ${i < Math.round(averageRating) ? 'text-yellow-400' : 'text-gray-600'}`} />
