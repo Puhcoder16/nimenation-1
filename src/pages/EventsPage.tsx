@@ -107,7 +107,7 @@ const EventsPage = () => {
         </div>
 
         <div className="text-center mt-12">
-          <ShinyButton to="/buy">
+          <ShinyButton href="https://discord.com/invite/renx-store-860-luot-ban-road-to-3k-members-1345213854828728422">
             <span>Mua Ngay Để Tham Gia Sự Kiện</span>
           </ShinyButton>
         </div>
