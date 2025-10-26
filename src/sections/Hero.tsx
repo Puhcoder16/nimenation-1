@@ -34,7 +34,7 @@ const Hero = ({ reviews, loading }: { reviews: Review[], loading: boolean }) => 
     <section
       id="home"
       className="relative flex h-[85vh] min-h-[600px] max-h-[850px] items-center justify-center bg-cover bg-center bg-no-repeat overflow-hidden"
-      style={{ backgroundImage: `url('https://media.discordapp.net/attachments/1404623067766063234/1431524529360080926/standard_4.gif?ex=68fdba9c&is=68fc691c&hm=65a3fb18e54a17b32a550786dd6c69846381bc9d408b68bc2274c7da8a5ebdfd&=')` }}
+      style={{ backgroundImage: `url('https://media.discordapp.net/attachments/1404623067766063234/1431524529360080926/standard_4.gif?ex=68ff0c1c&is=68fdba9c&hm=2016117973c2997de1174a58a8459d0beb1354233029e7f1bd3bf21854651ecc&=')` }}
     >
       <div className="absolute inset-0 z-0 bg-black/50"></div>
 
