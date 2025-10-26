@@ -54,8 +54,8 @@ const Sponsor = () => {
                     Nhận <strong>slot banner</strong>, giới thiệu kênh, và quảng bá ngay trên web / server shop.
                   </p>
                   <div className="flex flex-wrap gap-3 mt-4">
-                    <ShinyButton href="https://drive.google.com">
-                      <span>Xem Gói Tài Trợ</span>
+                    <ShinyButton href="https://discord.com/invite/renx-store-860-luot-ban-road-to-3k-members-1345213854828728422">
+                      <span>Săp cập nhật</span>
                     </ShinyButton>
                   </div>
                 </div>
