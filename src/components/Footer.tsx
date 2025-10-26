@@ -7,7 +7,7 @@ import GhostIcon from './icons/halloween/GhostIcon';
 const Footer = () => {
   const socialLinks = [
     { name: 'Discord', href: 'https://discord.gg/RDsv8KHunh', icon: DiscordIcon },
-    { name: 'Instagram', href: 'https://www.instagram.com/made_in_tieukhu7', icon: InstagramIcon },
+    { name: 'Instagram', href: 'https://www.instagram.com', icon: InstagramIcon },
     { name: 'TikTok', href: 'https://www.tiktok.com/@renxog146', icon: TiktokIcon },
     { name: 'YouTube', href: 'https://www.youtube.com/@RenxOG146', icon: YoutubeIcon },
   ];
